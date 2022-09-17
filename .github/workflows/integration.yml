@@ -1,0 +1,39 @@
+name: Jeff-Integration
+
+on: [pull_request, push]
+
+jobs:
+  lint_python:
+    runs-on: ubuntu-latest
+    strategy:
+          matrix:
+            python-version: ["3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3   
+      - name: Set up Python for Demo
+        uses: actions/setup-python@v4 
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install -r requirements_test.txt
+      - name: Python code formatter
+        run: black --check . || true
+      - name: Spell checking
+        run: codespell || true
+      - name: Sort imports  
+        run: isort --check-only --profile black . || true
+      - name: Lint with flake8
+        run: |
+             flake8 --count --select=E9,F63,F7,F82 --show-source --statistics
+             flake8 --count --exit-zero --max-complexity=10 --max-line-length=88 --show-source --statistics
+      - name: TypeChecking
+        run:  mypy --ignore-missing-imports --install-types --non-interactive . || true
+      - name: UnitTest
+        run: |
+          pytest . || true
+          pytest --doctest-modules . || true
+      - name: Find common security issues in Python code
+        run: bandit --recursive --skip B101 . || true 
+      - name: Find security issues in dependencies    
+        run: safety check    
