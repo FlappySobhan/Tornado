@@ -18,22 +18,22 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements_test.txt
       - name: Python code formatter
-        run: black --check . || true
+        run: black . --check || true
       - name: Spell checking
-        run: codespell || true
+        run: codespell . --quiet-level 3 --count
       - name: Sort imports  
-        run: isort --check-only --profile black . || true
+        run: isort . --check-only --profile black || true
       - name: Lint with flake8
         run: |
-             flake8 --count --select=E9,F63,F7,F82 --show-source --statistics
-             flake8 --count --exit-zero --max-complexity=10 --max-line-length=88 --show-source --statistics
+             flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+             flake8 . --count --max-complexity=10 --max-line-length=79 --show-source --statistics 
       - name: TypeChecking
-        run:  mypy --ignore-missing-imports --install-types --non-interactive . || true
+        run:  mypy . --ignore-missing-imports --install-types --non-interactive
       - name: UnitTest
         run: |
-          pytest . || true
-          pytest --doctest-modules . || true
+          pytest . --exitfirst --verbose --failed-first
+          pytest . --doctest-modules || true
       - name: Find common security issues in Python code
-        run: bandit --recursive --skip B101 . || true 
+        run: bandit . --recursive --skip B101
       - name: Find security issues in dependencies    
         run: safety check    
