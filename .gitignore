@@ -155,3 +155,5 @@ cython_debug/
 
 
 .mypy_cache
+*.sql
+.vscode
