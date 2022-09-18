@@ -1,0 +1,54 @@
+from peewee import *
+import re
+
+from model.configs import db
+from model.configs import BaseModel
+from exceptions import StructureError
+
+
+def create_tables():
+    with db:
+        db.create_tables([Desk])
+
+
+class Desk(BaseModel):
+    """Desk table definition and validation"""
+
+    id = PrimaryKeyField()
+    number = IntegerField()
+    capacity = IntegerField()
+    status = CharField()
+    cost = DecimalField()
+
+    def __init__(self, number: int, capacity: int, status: str, cost: int | float) -> None:
+        super().__init__()
+        self.number = number
+        self.capacity = capacity
+        self.status = status
+        self.cost = cost
+        Desk.validation(self.__dict__['__data__'])
+        self.save(self)
+
+    @staticmethod
+    def validation(data: dict) -> None:
+        """Regex validator"""
+
+        patterns = {
+            'number': r'^\d{1,3}$',
+            'capacity': r'^\d{1,2}$',
+            'status': r'^.{1,250}$',
+            'cost': r'^[1-9]\d*(\.\d+)?$'
+        }
+
+        messages = [
+            'numeric max 3 digits',
+            'numeric max 2 digits',
+            'max 250 char',
+            'integer or decimal number'
+        ]
+
+        counter = 0
+        for key, value in data.items():
+            if not re.match(patterns[key], str(value)):
+                raise StructureError(key, messages[counter])
+            counter += 1
