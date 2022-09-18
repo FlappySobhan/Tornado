@@ -38,10 +38,11 @@ class Receipts(BaseModel):
 
         patterns = {
             'cost': r'^[1-9]\d*(\.\d+)?$',
-            'delivery': r'^.{1,50}$',
+            'delivery': r'^([0-5][0-9][0-9][0-9])-(([0][0-9])|[1][0-2])-(([0][0-9])|([1][0-9])|([2][0-9])|([3][0-1])) '
+                        r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$',
             'code': r'^\d{1,5}$',
             'customer': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,50}$',
-            'desk': r'^\d{1,3}$',
+            'desk': r'^\d{1,3}$'
         }
 
         messages = [
@@ -49,7 +50,7 @@ class Receipts(BaseModel):
             'max 50 char',
             'numeric max 5 digits',
             'alphabetic 2~50 char',
-            'numeric max 3 digits',
+            'numeric max 3 digits'
         ]
 
         counter = 0

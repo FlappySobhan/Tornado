@@ -12,7 +12,6 @@ def create_tables():
 
 
 class Menu(BaseModel):
-
     id = PrimaryKeyField()
     name = CharField()
     price = DecimalField()
@@ -40,17 +39,18 @@ class Menu(BaseModel):
 
         patterns = {
             'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,30}$',
-            'price': r'^[1-9]\d*(\.\d+)?$',
-            'discount': r'^[1-9]\d*(\.\d+)?$',
+            'price': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
+            'discount': r'(^\d{1,5}\.\d{1,5}$)|(^\d{1,5}$)',
             'category': r'^.{1,50}$',
             'meal': r'^.{1,50}$',
-            'preparation': r'^.{1,50}$'
+            # time regex for order preparation time (hh:mm:ss)
+            'preparation': r'^([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$'
         }
 
         messages = [
             'alphabetic 2~30 char',
-            'integer or decimal number',
-            'integer or decimal number',
+            'integer or decimal number and maximum 5 digits',
+            'integer or decimal number and maximum 5 digits',
             'max 50 char',
             'max 50 char',
             'max 50 char'

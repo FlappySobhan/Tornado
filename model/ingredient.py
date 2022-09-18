@@ -39,7 +39,7 @@ class Ingredient(BaseModel):
             'quantity': r'^\d{1,10}$',
             'unit': r'^.{1,40}$',
             'category': r'^.{1,40}$',
-            'cost': r'^[1-9]\d*(\.\d+)?$'
+            'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)'
         }
 
         messages = [
@@ -47,7 +47,7 @@ class Ingredient(BaseModel):
             'numeric max 10 digits',
             'max 40 chars',
             'max 40 chars',
-            'integer or decimal number'
+            'integer or decimal number and maximum 5 digits'
         ]
 
         counter = 0

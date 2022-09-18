@@ -14,7 +14,6 @@ def create_tables():
 
 
 class Recipe(BaseModel):
-
     id = PrimaryKeyField()
     cost = DecimalField()
     menu_id = ForeignKeyField(Menu, to_field="id")
@@ -31,11 +30,11 @@ class Recipe(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'cost': r'^[1-9]\d*(\.\d+)?$'
+            'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)'
         }
 
         messages = [
-            'integer or decimal number'
+            'max 10 digits and 5 decimal places'
         ]
 
         counter = 0
