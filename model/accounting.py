@@ -31,12 +31,13 @@ class Accounting(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'profit': r'^[1-9]\d*(\.\d+)?$',
+
+            'profit': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
             'description': r'^.{1,250}$'
         }
 
         messages = [
-            'integer or decimal number',
+            'integer or decimal number and maximum 5 digits',
             'max 250 chars'
         ]
 

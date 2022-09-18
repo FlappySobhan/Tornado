@@ -15,7 +15,6 @@ def create_tables():
 
 
 class Order(BaseModel):
-
     id = PrimaryKeyField()
     status = CharField()
     register = CharField()
@@ -42,10 +41,14 @@ class Order(BaseModel):
 
         patterns = {
             'status': r'^.{1,50}$',
-            'register': r'^.{1,50}$',
-            'deliver': r'^.{1,50}$',
+            # timestamp regex yyyy-mm-dd hh:mm:ss
+            'register': r'^([0-5][0-9][0-9][0-9])-(([0][0-9])|[1][0-2])-(([0][0-9])|([1][0-9])|([2][0-9])|([3][0-1])) '
+                        r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$',
+            # timestamp regex yyyy-mm-dd hh:mm:ss
+            'deliver': r'^([0-5][0-9][0-9][0-9])-(([0][0-9])|[1][0-2])-(([0][0-9])|([1][0-9])|([2][0-9])|([3][0-1])) '
+                       r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$',
             'code': r'^\d{1,5}$',
-            'cost': r'^[1-9]\d*(\.\d+)?$'
+            'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)'
         }
 
         messages = [
@@ -53,7 +56,7 @@ class Order(BaseModel):
             'max 50 char',
             'max 50 char',
             'numeric max 5 digits',
-            'integer or decimal number'
+            'integer or decimal number and maximum 5 digits'
         ]
 
         counter = 0

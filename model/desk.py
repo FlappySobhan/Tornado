@@ -37,14 +37,14 @@ class Desk(BaseModel):
             'number': r'^\d{1,3}$',
             'capacity': r'^\d{1,2}$',
             'status': r'^.{1,250}$',
-            'cost': r'^[1-9]\d*(\.\d+)?$'
+            'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)'
         }
 
         messages = [
             'numeric max 3 digits',
             'numeric max 2 digits',
             'max 250 char',
-            'integer or decimal number'
+            'integer or decimal number and maximum 5 digits'
         ]
 
         counter = 0

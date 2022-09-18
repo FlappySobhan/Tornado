@@ -1,4 +1,3 @@
-
 class CustomException(Exception):
     """Main format exceptions"""
 
@@ -6,7 +5,7 @@ class CustomException(Exception):
         self.alert = 'Field'
         self.field = field
         self.msg = msg
-    
+
     def __str__(self) -> str:
         return f'{self.alert}: {self.field} => {self.msg}'
 
