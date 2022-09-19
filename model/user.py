@@ -71,4 +71,4 @@ class Users(BaseModel):
             counter += 1
 
 
-create_tables()
+# create_tables()
