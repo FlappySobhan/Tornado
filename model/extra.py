@@ -14,7 +14,6 @@ def create_tables():
 
 class Extra(BaseModel):
 
-    id = PrimaryKeyField()
     email = CharField()
     phone = CharField()
     address = CharField()
@@ -53,3 +52,6 @@ class Extra(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()

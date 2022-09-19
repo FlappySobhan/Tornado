@@ -14,7 +14,6 @@ def create_tables():
 
 class Receipts(BaseModel):
 
-    id = PrimaryKeyField()
     cost = DecimalField()
     delivery = TimestampField()
     code = IntegerField()
@@ -46,7 +45,7 @@ class Receipts(BaseModel):
         }
 
         messages = [
-            'integer or decimal number',
+            'max 10 digits and 5 decimal places',
             'max 50 char',
             'numeric max 5 digits',
             'alphabetic 2~50 char',
@@ -58,3 +57,6 @@ class Receipts(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()

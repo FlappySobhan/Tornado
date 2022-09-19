@@ -1,16 +1,16 @@
 from views.utils import Route, Handler
-import views.views
+from views.views import *
 
 routes = [
-    Route("/", endpoint=None, view_func=views.home),
-    Route("/menu", endpoint=None, view_func=views.menu),
+    Route("/", endpoint=None, view_func=home),
+    Route("/menu", endpoint=None, view_func=menu),
     Route("/order/new/{table_id}", endpoint=None,
-          view_func=views.new_order, methods=['POST']),
-    Route("/order/show/{table_id}", endpoint=None, view_func=views.show_order),
+          view_func=new_order, methods=['POST']),
+    Route("/order/show/{table_id}", endpoint=None, view_func=show_order),
     Route("/order/delete/{table_id}", endpoint=None,
-          view_func=views.delete_order, methods=['DELETE']),
+          view_func=delete_order, methods=['DELETE']),
 
 
     # Handlers:
-    Handler(404, views.not_found)
+    Handler(404, not_found)
 ]

@@ -1,8 +1,8 @@
 import re
 from peewee import *
-from configs import db
-from configs import BaseModel
 
+from model.configs import db
+from model.configs import BaseModel
 from model.user import Users
 from model.menu import Menu
 from model.desk import Desk
@@ -15,9 +15,9 @@ def create_tables():
 
 
 class Order(BaseModel):
-    id = PrimaryKeyField()
+
     status = CharField()
-    register = CharField()
+    register = TimestampField()
     deliver = CharField()
     code = CharField()
     cost = CharField()
@@ -41,10 +41,8 @@ class Order(BaseModel):
 
         patterns = {
             'status': r'^.{1,50}$',
-            # timestamp regex yyyy-mm-dd hh:mm:ss
             'register': r'^([0-5][0-9][0-9][0-9])-(([0][0-9])|[1][0-2])-(([0][0-9])|([1][0-9])|([2][0-9])|([3][0-1])) '
                         r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$',
-            # timestamp regex yyyy-mm-dd hh:mm:ss
             'deliver': r'^([0-5][0-9][0-9][0-9])-(([0][0-9])|[1][0-2])-(([0][0-9])|([1][0-9])|([2][0-9])|([3][0-1])) '
                        r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$',
             'code': r'^\d{1,5}$',
@@ -53,10 +51,10 @@ class Order(BaseModel):
 
         messages = [
             'max 50 char',
-            'max 50 char',
-            'max 50 char',
+            'yyyy-mm-dd hh:mm:ss',
+            'yyyy-mm-dd hh:mm:ss',
             'numeric max 5 digits',
-            'integer or decimal number and maximum 5 digits'
+            'max 10 digits and 5 decimal places'
         ]
 
         counter = 0
@@ -64,3 +62,6 @@ class Order(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()

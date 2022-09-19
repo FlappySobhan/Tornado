@@ -13,7 +13,6 @@ def create_tables():
 
 class Users(BaseModel):
 
-    id = PrimaryKeyField()
     name = CharField()
     family = CharField()
     phone = CharField()
@@ -25,7 +24,7 @@ class Users(BaseModel):
     created_at = TimestampField()
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
-                 balance: int | float, subscription: str, privilege: str = 'public') -> None:
+                 balance: int | float, subscription: int, privilege: str = 'public') -> None:
 
         super().__init__()
         self.name = name
@@ -50,7 +49,7 @@ class Users(BaseModel):
             'address': r'^.{1,250}$',
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
             'balance': r'^[1-9]\d*(\.\d+)?$',
-            'subscription': r'^\d{1,5}$',
+            'subscription': r'^\d{1,8}$',
             'privilege': r'^.{1,40}$'
         }
 
@@ -61,7 +60,7 @@ class Users(BaseModel):
             'max 250 char',
             'complex with 8~40 char',
             'numeric max 10 digits',
-            'numeric max 5 digits',
+            'numeric max 8 digits',
             'max 40 chars'
         ]
 
@@ -70,3 +69,6 @@ class Users(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()
