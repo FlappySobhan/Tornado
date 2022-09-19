@@ -13,16 +13,16 @@ def create_tables():
 
 
 class Users(BaseModel):
-    id = peewee.PrimaryKeyField()
+    user_id = peewee.AutoField()
     name = peewee.CharField()
     family = peewee.CharField()
     phone = peewee.CharField()
     address = peewee.CharField()
     password = peewee.CharField()
-    balance = peewee.CharField()
+    balance = peewee.DecimalField()
     privilege = peewee.CharField()
     subscription = peewee.CharField()
-    created_at = peewee.DateTimeField(datetime.now)
+    created_at = peewee.DateTimeField(datetime.now())
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
                  balance: int | float, subscription: int, privilege: str = 'public') -> None:

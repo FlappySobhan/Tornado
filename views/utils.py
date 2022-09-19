@@ -9,8 +9,8 @@ class Handler:
 
 
 class Route:
-    __rules = []
-    __endpoints = []
+    __rules: list = []
+    __endpoints: list = []
 
     def __init__(self, rule: str, endpoint: str | None = None, view_func: None = None,
                  **options) -> None:

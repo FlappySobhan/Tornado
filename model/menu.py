@@ -12,7 +12,7 @@ def create_tables():
 
 
 class Menu(BaseModel):
-    id = peewee.PrimaryKeyField()
+    menu_id = peewee.AutoField()
     name = peewee.CharField()
     price = peewee.DecimalField()
     discount = peewee.DecimalField()

@@ -15,17 +15,18 @@ def create_tables():
 
 
 class Order(BaseModel):
-    id = peewee.PrimaryKeyField()
+    order_id = peewee.AutoField()
     status = peewee.CharField()
     register = peewee.TimestampField()
     deliver = peewee.CharField()
     code = peewee.CharField()
-    cost = peewee.CharField()
-    user = peewee.ForeignKeyField(Users, field="id")
-    menu = peewee.ForeignKeyField(Menu, field="id")
-    desk = peewee.ForeignKeyField(Desk, field="id")
+    cost = peewee.DecimalField()
+    user = peewee.ForeignKeyField(Users, field="user_id")
+    menu = peewee.ForeignKeyField(Menu, field="menu_id")
+    desk = peewee.ForeignKeyField(Desk, field="desk_id")
 
-    def __init__(self, status: str, register: str, deliver: str, code: int, cost: int | float, user: int, menu: int, desk: int) -> None:
+    def __init__(self, status: str, register: str, deliver: str, code: int, cost: int | float, user: int,
+                 menu: int, desk: int) -> None:
         super().__init__()
         self.status = status
         self.register = register
@@ -34,7 +35,7 @@ class Order(BaseModel):
         self.cost = cost
         self.user = user
         self.menu = menu
-        self.desk = desk                        
+        self.desk = desk
         Order.validation(self.__dict__['__data__'])
 
     @staticmethod
@@ -51,7 +52,7 @@ class Order(BaseModel):
             'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
             'user': r'^\d{1,10}$',
             'menu': r'^\d{1,10}$',
-            'desk': r'^\d{1,10}$'                        
+            'desk': r'^\d{1,10}$'
         }
 
         messages = [

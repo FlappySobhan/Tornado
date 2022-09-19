@@ -14,10 +14,10 @@ def create_tables():
 
 
 class Recipe(BaseModel):
-    id = peewee.PrimaryKeyField()
+    recipe_id = peewee.AutoField()
     cost = peewee.DecimalField()
-    menu = peewee.ForeignKeyField(Menu, field="id")
-    ingredient = peewee.ForeignKeyField(Ingredient, field="id")
+    menu = peewee.ForeignKeyField(Menu, field="menu_id")
+    ingredient = peewee.ForeignKeyField(Ingredient, field="ingredient_id")
 
     def __init__(self, cost: int | float, menu: int, ingredient: int) -> None:
         super().__init__()
@@ -31,7 +31,7 @@ class Recipe(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
+            'cost': r'^(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)$',
             'menu': r'^\d{1,10}$',
             'ingredient': r'^\d{1,10}$'
         }

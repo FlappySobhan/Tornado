@@ -13,12 +13,12 @@ def create_tables():
 
 
 class Extra(BaseModel):
-    id = peewee.PrimaryKeyField()
+    extra_id = peewee.AutoField()
     email = peewee.CharField()
     phone = peewee.CharField()
     address = peewee.CharField()
     info = peewee.TextField()
-    user = peewee.ForeignKeyField(Users, field="id")
+    user = peewee.ForeignKeyField(Users, field="user_id")
 
     def __init__(self, email: str, phone: str, address: str, info: str, user: int) -> None:
         super().__init__()
@@ -26,7 +26,7 @@ class Extra(BaseModel):
         self.phone = phone
         self.address = address
         self.info = info
-        self.user = user        
+        self.user = user
         Extra.validation(self.__dict__['__data__'])
 
     @staticmethod
@@ -34,11 +34,11 @@ class Extra(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'email': r'[\w|.|-]*@\w*\.[\w|.]*',
+            'email': r'^[\w|.|-]+@\w*\.[\w|.]*$',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
             'info': r'.',
-            'user': r'^\d{1,10}$' 
+            'user': r'^\d{1,10}$'
         }
 
         messages = [
@@ -46,7 +46,7 @@ class Extra(BaseModel):
             'numeric, 10 primary digits',
             'max 250 char',
             'unlimited',
-            'max 10 digits'            
+            'max 10 digits'
         ]
 
         counter = 0

@@ -12,7 +12,7 @@ def create_tables():
 
 
 class Ingredient(BaseModel):
-    id = peewee.PrimaryKeyField()
+    ingredient_id = peewee.AutoField()
     name = peewee.CharField()
     quantity = peewee.IntegerField()
     unit = peewee.CharField()

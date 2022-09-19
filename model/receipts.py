@@ -13,13 +13,13 @@ def create_tables():
 
 
 class Receipts(BaseModel):
-    id = peewee.PrimaryKeyField()
+    receipts_id = peewee.AutoField()
     cost = peewee.DecimalField()
     delivery = peewee.TimestampField()
     code = peewee.IntegerField()
     customer = peewee.CharField()
     desk = peewee.IntegerField()
-    order = peewee.ForeignKeyField(Order, field="id")
+    order = peewee.ForeignKeyField(Order, field="order_id")
 
     def __init__(self, cost: int | float, delivery: str, code: int, customer: str, desk: int, order: int) -> None:
         super().__init__()
@@ -36,13 +36,13 @@ class Receipts(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'cost': r'^[1-9]\d*(\.\d+)?$',
+            'cost': r'^(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)$',
             'delivery': r'^([0-5][0-9][0-9][0-9])-(([0][0-9])|[1][0-2])-(([0][0-9])|([1][0-9])|([2][0-9])|([3][0-1])) '
                         r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$',
             'code': r'^\d{1,5}$',
             'customer': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,50}$',
             'desk': r'^\d{1,3}$',
-            'foreign': r'^\d{1,10}$'
+            'order': r'^\d{1,10}$'
         }
 
         messages = [

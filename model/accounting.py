@@ -13,18 +13,18 @@ def create_tables():
 
 
 class Accounting(BaseModel):
-    id = peewee.PrimaryKeyField()
+    accounting_id = peewee.AutoField()
     profit = peewee.DecimalField()
     description = peewee.CharField()
-    order = peewee.ForeignKeyField(Order)
+    order = peewee.ForeignKeyField(Order, field='order_id')
 
-    def __init__(self, profit: int | float, description: str, order) -> None:
+    def __init__(self, profit: int | float, description: str, order: int) -> None:
         super().__init__()
         self.profit = profit
         self.description = description
         self.order = order
         Accounting.validation(self.__dict__['__data__'])
-        
+
     @staticmethod
     def validation(data: dict) -> None:
         """Regex validator"""
@@ -49,4 +49,3 @@ class Accounting(BaseModel):
 
 
 create_tables()
-

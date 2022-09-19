@@ -13,7 +13,7 @@ def create_tables():
 
 class Desk(BaseModel):
     """Desk table definition and validation"""
-    id = peewee.PrimaryKeyField()
+    desk_id = peewee.AutoField()
     number = peewee.IntegerField()
     capacity = peewee.IntegerField()
     status = peewee.CharField()
