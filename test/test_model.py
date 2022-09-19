@@ -1,4 +1,5 @@
 import pytest
+from decouple import config
 
 from model.user import Users
 from model.recipe import Recipe
@@ -16,12 +17,12 @@ class TestUserModel:
 
     def test_user_success(self):
         self.p1 = Users('jeff', 'bobs', '09123536842',
-                        'iran-mashhad', '123!qwerQW', 100, 100)
+                        'iran-mashhad', config('DB_PASSWORD'), 100, 100)
         assert self.p1.name == 'jeff'
         assert self.p1.family == 'bobs'
         assert self.p1.phone == '09123536842'
         assert self.p1.address == 'iran-mashhad'
-        assert self.p1.password == '123!qwerQW'
+        assert self.p1.password == config('DB_PASSWORD')
         assert self.p1.balance == 100
         assert self.p1.subscription == 100
 
