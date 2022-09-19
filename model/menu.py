@@ -1,5 +1,5 @@
 import re
-from peewee import *
+import peewee
 
 from model.configs import db
 from model.configs import BaseModel
@@ -12,13 +12,13 @@ def create_tables():
 
 
 class Menu(BaseModel):
-
-    name = CharField()
-    price = DecimalField()
-    discount = DecimalField()
-    category = CharField()
-    meal = CharField()
-    preparation = TimeField()
+    id = peewee.PrimaryKeyField()
+    name = peewee.CharField()
+    price = peewee.DecimalField()
+    discount = peewee.DecimalField()
+    category = peewee.CharField()
+    meal = peewee.CharField()
+    preparation = peewee.TimeField()
 
     def __init__(self, name: str, price: int | float, discount: int | float,
                  category: str, meal: str, preparation: str) -> None:
@@ -31,7 +31,6 @@ class Menu(BaseModel):
         self.meal = meal
         self.preparation = preparation
         Menu.validation(self.__dict__['__data__'])
-        self.save(self)
 
     @staticmethod
     def validation(data: dict) -> None:

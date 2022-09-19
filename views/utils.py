@@ -12,7 +12,7 @@ class Route:
     __rules = []
     __endpoints = []
 
-    def __init__(self, rule: str, endpoint: str | None = None, view_func:  None = None,
+    def __init__(self, rule: str, endpoint: str | None = None, view_func: None = None,
                  **options) -> None:
         self.rule = rule.strip()
         self.endpoint = endpoint
@@ -22,10 +22,10 @@ class Route:
         for k, v in options.items():
             setattr(self, k, v)
 
-        assert isinstance(
-            self.rule, str) and self.rule not in self.__class__.__rules, f"rule [{self.rule}] invalid !"
-        assert not self.endpoint or (isinstance(self.endpoint,
-                                                str) and self.endpoint not in self.__class__.__endpoints), f"endpoint [{self.endpoint}] invalid !"
+        assert isinstance(self.rule, str)
+        assert self.rule not in self.__class__.__rules, f"rule [{self.rule}] invalid!"
+        condition_x = isinstance(self.endpoint, str) and self.endpoint not in self.__class__.__endpoints
+        assert not self.endpoint or condition_x, f"endpoint [{self.endpoint}] invalid!"
 
         self.__class__.__rules.append(self.rule)
         self.__class__.__endpoints.append(self.endpoint)
