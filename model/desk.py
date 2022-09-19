@@ -43,7 +43,7 @@ class Desk(BaseModel):
             'numeric max 3 digits',
             'numeric max 2 digits',
             'max 250 char',
-            'integer or decimal number and maximum 5 digits'
+            'max 10 digits and 5 decimal places'
         ]
 
         counter = 0

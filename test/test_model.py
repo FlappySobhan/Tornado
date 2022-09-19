@@ -4,7 +4,11 @@ from model.user import Users
 from model.recipe import Recipe
 from model.receipts import Receipts
 from model.order import Order
+from model.extra import Extra
 from model.menu import Menu
+from model.desk import Desk
+from model.accounting import Accounting
+from model.ingredient import Ingredient
 from exceptions import *
 
 
@@ -58,10 +62,41 @@ class TestUserModel:
                                  ('jeff', 'yaghoubi', '09123536842',
                                      'iran-mashhad', '123!qwerQW', 0, 'bad')
                              ]
-                             )
+                            )
+                            
     def test_user_raise(self, name, family, phone, address, password, balance, subscription):
         pytest.raises(StructureError, Users, name, family, phone,
                       address, password, balance, subscription)
+
+
+class TestExtraModel:
+
+    def test_extra_success(self):
+        self.p1 = Extra('example@me.com', '09123536842', 'address', 'nothing')
+        assert self.p1.email == 'example@me.com'
+        assert self.p1.phone == '09123536842'
+        assert self.p1.address == 'address'
+        assert self.p1.info == 'nothing'
+
+    @pytest.mark.parametrize('email, phone, address, info',
+                             [
+                                 ('example.com', '09123536842',
+                                  'address', 'nothing'),
+                                 ('example@me', '09123536842',
+                                  'address', 'nothing'),
+                                 ('@me.com', '09123536842', 'address', 'nothing'),
+                                 ('.com', '09123536842', 'address', 'nothing'),
+                                 ('example@.com@.com', '09123536842',
+                                     'address', 'nothing'),
+                                 ('.com', '123', 'address', 'nothing'),
+                                 ('.com', 'abc', 'address', 'nothing'),
+                                 ('.com', '09123536842', '', 'nothing')
+                             ]
+                            )
+
+    def test_extra_raise(email, phone, address, info):
+        pytest.raises(StructureError, Extra, email,
+                      phone, address, info)
 
 
 class TestRecipeModel:
@@ -77,7 +112,8 @@ class TestRecipeModel:
                                  (.1234),
                                  (1.12345678)
                              ]
-                             )
+                            )
+
     def test_recipe_raise(self, cost):
         pytest.raises(StructureError, Recipe, cost)
 
@@ -110,7 +146,8 @@ class TestReceiptsModel:
                                      100, 'alex bob', 12345),
                                  (100, '2002-10-10 14:23:16', 100, 'alex bob', ''),
                              ]
-                             )
+                            )
+
     def test_receipts_raise(self, cost, delivery, code, customer, desk):
         pytest.raises(StructureError, Receipts, cost,
                       delivery, code, customer, desk)
@@ -150,30 +187,113 @@ class TestOrderModel:
 class TestMenuModel:
 
     def test_menu_success(self):
-        self.p1 = Menu('coffee', 10_000, 1_000, 'drink', 'breakfast', '00:10:00')
+        self.p1 = Menu('coffee', 10_000, 1_000,
+                       'drink', 'breakfast', '00:10:00')
         assert self.p1.name == 'coffee'
         assert self.p1.price == 10_000
         assert self.p1.discount == 1_000
         assert self.p1.category == 'drink'
         assert self.p1.meal == 'breakfast'
-        assert self.p1.preparation == '00:10:00'       
+        assert self.p1.preparation == '00:10:00'
 
     @pytest.mark.parametrize('name, price, discount, category, meal, preparation',
                              [
-                                ('', 10_000, 1_000, 'drink', 'breakfast', '00:10:00'),
-                                (123, 10_000, 1_000, 'drink', 'breakfast', '00:10:00'),
-                                ('coffee', 'abc', 1_000, 'drink', 'breakfast', '00:10:00'),
-                                ('coffee', 10_000, .12345678, 'drink', 'breakfast', '00:10:00'),
-                                ('coffee', 10_000, 1_000, '', 'breakfast', '00:10:00'),
-                                ('coffee', 10_000, 1_000, 'drink', '', 'abc'),
-                                ('coffee', 10_000, 1_000, 'drink', '', 123),
-                                ('coffee', 10_000, 1_000, 'drink', '', ''),
-                                ('coffee', 10_000, 1_000, 'drink', '', '00=10=00'),
-                                ('coffee', 10_000, 1_000, 'drink', '', '10=00'),
-                                ('coffee', 10_000, 1_000, 'drink', '', '00:10=00'),
-                                ('coffee', 10_000, 1_000, 'drink', '', '00:10:00:00')
+                                 ('', 10_000, 1_000, 'drink',
+                                  'breakfast', '00:10:00'),
+                                 (123, 10_000, 1_000, 'drink',
+                                     'breakfast', '00:10:00'),
+                                 ('coffee', 'abc', 1_000, 'drink',
+                                     'breakfast', '00:10:00'),
+                                 ('coffee', 10_000, .12345678,
+                                     'drink', 'breakfast', '00:10:00'),
+                                 ('coffee', 10_000, 1_000, '',
+                                     'breakfast', '00:10:00'),
+                                 ('coffee', 10_000, 1_000, 'drink', '', 'abc'),
+                                 ('coffee', 10_000, 1_000, 'drink', '', 123),
+                                 ('coffee', 10_000, 1_000, 'drink', '', ''),
+                                 ('coffee', 10_000, 1_000,
+                                  'drink', '', '00=10=00'),
+                                 ('coffee', 10_000, 1_000, 'drink', '', '10=00'),
+                                 ('coffee', 10_000, 1_000,
+                                  'drink', '', '00:10=00'),
+                                 ('coffee', 10_000, 1_000,
+                                     'drink', '', '00:10:00:00')
                              ]
-                             )
+                            )
+
     def test_menu_raise(name, price, discount, category, meal, preparation):
         pytest.raises(StructureError, Menu, name,
                       price, discount, category, meal, preparation)
+
+
+class TestIngredientModel:
+
+    def test_ingredient_success(self):
+        self.p1 = Ingredient('milk', 100, 'kilo', 'dairy', 10_000)
+        assert self.p1.name == 'milk'
+        assert self.p1.quantity == 100
+        assert self.p1.unit == 'kilo'
+        assert self.p1.category == 'dairy'
+        assert self.p1.cost == 10_000
+
+    @pytest.mark.parametrize('name, quantity, unit, category, cost',
+                             [
+                                 ('', 100, 'kilo', 'dairy', 10_000),
+                                 (124, 100, 'kilo', 'dairy', 10_000),
+                                 ('a', 100, 'kilo', 'dairy', 10_000),
+                                 ('milk', 'a', 'kilo', 'dairy', 10_000),
+                                 ('milk', '', 'kilo', 'dairy', 10_000),
+                                 ('milk', 100, '', 'dairy', 10_000),
+                                 ('milk', 100, 'kilo', '', 10_000),
+                                 ('milk', 100, 'kilo', 'dairy', 'abc')
+                             ]
+                            )
+
+    def test_ingredient_raise(name, quantity, unit, category, cost):
+        pytest.raises(StructureError, Ingredient, name,
+                      quantity, unit, category, cost)
+
+
+class TestDeskModel:
+
+    def test_desk_success(self):
+        self.p1 = Desk(1, 2, 'free', 100)
+        assert self.p1.number == 1
+        assert self.p1.capacity == 2
+        assert self.p1.status == 'free'
+        assert self.p1.cost == 100
+
+    @pytest.mark.parametrize('number, capacity, status, cost',
+                             [
+                                 ('', 2, 'free', 100),
+                                 ('abc', 2, 'free', 100),
+                                 (12345, 2, 'free', 100),
+                                 (1, '', 'free', 100),
+                                 (1, 'a', 'free', 100),
+                                 (1, 12345, 'free', 100),
+                                 (1, 2, '', 100),
+                                 (1, 2, 'free', 'a')
+                             ]
+                            )
+
+    def test_desk_raise(number, capacity, status, cost):
+        pytest.raises(StructureError, Desk, number,
+                      capacity, status, cost)
+
+
+class TestAccountingModel:
+    def test_accounting_success(self):
+        self.p1 = Accounting(1_000, 'somethings')
+        assert self.p1.profit == 1_000
+        assert self.p1.description == 'somethings'
+
+    @pytest.mark.parametrize('profit, capacity, status, cost',
+                             [
+                                 ('', 'somethings'),
+                                 (1_000, ''),
+                                 ('abc', 'somethings')
+                             ]
+                            )
+
+    def test_accounting_raise(profit, description):
+        pytest.raises(StructureError, Accounting, profit, description)

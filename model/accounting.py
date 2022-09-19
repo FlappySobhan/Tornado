@@ -14,7 +14,7 @@ def create_tables():
 
 class Accounting(BaseModel):
 
-    profit = CharField()
+    profit = DecimalField()
     description = CharField()
     order_id = ForeignKeyField(Order, to_field="id")
 
@@ -35,7 +35,7 @@ class Accounting(BaseModel):
         }
 
         messages = [
-            'integer or decimal number and maximum 5 digits',
+            'max 10 digits and 5 decimal places',
             'max 250 chars'
         ]
 
@@ -44,5 +44,6 @@ class Accounting(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
 
 create_tables()
