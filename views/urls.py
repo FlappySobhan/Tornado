@@ -1,5 +1,10 @@
 from views.utils import Route, Handler
-from views.views import *
+from views.views import home
+from views.views import menu
+from views.views import new_order
+from views.views import show_order
+from views.views import delete_order
+from views.views import not_found
 
 routes = [
     Route("/", endpoint=None, view_func=home),

@@ -1,5 +1,6 @@
 import re
-from peewee import *
+import peewee
+from datetime import datetime
 
 from model.configs import db
 from model.configs import BaseModel
@@ -12,16 +13,16 @@ def create_tables():
 
 
 class Users(BaseModel):
-
-    name = CharField()
-    family = CharField()
-    phone = CharField()
-    address = CharField()
-    password = CharField()
-    balance = CharField()
-    privilege = CharField()
-    subscription = CharField()
-    created_at = TimestampField()
+    user_id = peewee.AutoField()
+    name = peewee.CharField()
+    family = peewee.CharField()
+    phone = peewee.CharField()
+    address = peewee.CharField()
+    password = peewee.CharField()
+    balance = peewee.DecimalField()
+    privilege = peewee.CharField()
+    subscription = peewee.CharField()
+    created_at = peewee.DateTimeField(datetime.now())
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
                  balance: int | float, subscription: int, privilege: str = 'public') -> None:
@@ -36,7 +37,6 @@ class Users(BaseModel):
         self.subscription = subscription
         self.privilege = privilege
         Users.validation(self.__dict__['__data__'])
-        self.save(self)
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -71,4 +71,4 @@ class Users(BaseModel):
             counter += 1
 
 
-create_tables()
+# create_tables()

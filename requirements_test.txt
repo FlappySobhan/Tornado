@@ -38,3 +38,5 @@ toml==0.10.2
 tomli==2.0.1
 typing_extensions==4.3.0
 urllib3==1.26.12
+peewee==3.15.2
+python-decouple==3.6

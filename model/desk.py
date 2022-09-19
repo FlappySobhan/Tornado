@@ -1,5 +1,5 @@
-from peewee import *
 import re
+import peewee
 
 from model.configs import db
 from model.configs import BaseModel
@@ -13,11 +13,11 @@ def create_tables():
 
 class Desk(BaseModel):
     """Desk table definition and validation"""
-
-    number = IntegerField()
-    capacity = IntegerField()
-    status = CharField()
-    cost = DecimalField()
+    desk_id = peewee.AutoField()
+    number = peewee.IntegerField()
+    capacity = peewee.IntegerField()
+    status = peewee.CharField()
+    cost = peewee.DecimalField()
 
     def __init__(self, number: int, capacity: int, status: str, cost: int | float) -> None:
         super().__init__()
@@ -26,7 +26,6 @@ class Desk(BaseModel):
         self.status = status
         self.cost = cost
         Desk.validation(self.__dict__['__data__'])
-        self.save(self)
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -53,4 +52,4 @@ class Desk(BaseModel):
             counter += 1
 
 
-create_tables()
+# create_tables()

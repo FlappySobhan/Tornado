@@ -1,5 +1,5 @@
 import re
-from peewee import *
+import peewee
 
 from model.configs import db
 from model.configs import BaseModel
@@ -12,12 +12,12 @@ def create_tables():
 
 
 class Ingredient(BaseModel):
-
-    name = CharField()
-    quantity = IntegerField()
-    unit = CharField()
-    category = CharField()
-    cost = DecimalField()
+    ingredient_id = peewee.AutoField()
+    name = peewee.CharField()
+    quantity = peewee.IntegerField()
+    unit = peewee.CharField()
+    category = peewee.CharField()
+    cost = peewee.DecimalField()
 
     def __init__(self, name: str, quantity: int | float, unit: str, category: str, cost: int | float) -> None:
         super().__init__()
@@ -27,7 +27,6 @@ class Ingredient(BaseModel):
         self.category = category
         self.cost = cost
         Ingredient.validation(self.__dict__['__data__'])
-        self.save(self)
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -56,4 +55,4 @@ class Ingredient(BaseModel):
             counter += 1
 
 
-create_tables()
+# create_tables()
