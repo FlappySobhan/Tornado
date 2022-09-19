@@ -17,12 +17,12 @@ class TestUserModel:
 
     def test_user_success(self):
         self.p1 = Users('jeff', 'bobs', '09123536842',
-                        'iran-mashhad', config('DB_PASSWORD'), 100, 100)
+                        'iran-mashhad', config('SECURITY_PASS_TEST'), 100, 100)
         assert self.p1.name == 'jeff'
         assert self.p1.family == 'bobs'
         assert self.p1.phone == '09123536842'
         assert self.p1.address == 'iran-mashhad'
-        assert self.p1.password == config('DB_PASSWORD')
+        assert self.p1.password == config('SECURITY_PASS_TEST')
         assert self.p1.balance == 100
         assert self.p1.subscription == 100
 
