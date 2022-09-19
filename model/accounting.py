@@ -14,8 +14,7 @@ def create_tables():
 
 class Accounting(BaseModel):
 
-    id = PrimaryKeyField()
-    profit = CharField()
+    profit = DecimalField()
     description = CharField()
     order_id = ForeignKeyField(Order, to_field="id")
 
@@ -31,13 +30,12 @@ class Accounting(BaseModel):
         """Regex validator"""
 
         patterns = {
-
             'profit': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
             'description': r'^.{1,250}$'
         }
 
         messages = [
-            'integer or decimal number and maximum 5 digits',
+            'max 10 digits and 5 decimal places',
             'max 250 chars'
         ]
 
@@ -46,3 +44,6 @@ class Accounting(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()

@@ -12,7 +12,7 @@ def create_tables():
 
 
 class Menu(BaseModel):
-    id = PrimaryKeyField()
+
     name = CharField()
     price = DecimalField()
     discount = DecimalField()
@@ -43,17 +43,16 @@ class Menu(BaseModel):
             'discount': r'(^\d{1,5}\.\d{1,5}$)|(^\d{1,5}$)',
             'category': r'^.{1,50}$',
             'meal': r'^.{1,50}$',
-            # time regex for order preparation time (hh:mm:ss)
             'preparation': r'^([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$'
         }
 
         messages = [
             'alphabetic 2~30 char',
-            'integer or decimal number and maximum 5 digits',
-            'integer or decimal number and maximum 5 digits',
+            'max 10 digits and 5 decimal places',
+            'max 10 digits and 5 decimal places',
             'max 50 char',
             'max 50 char',
-            'max 50 char'
+            'hh:mm:ss'
         ]
 
         counter = 0
@@ -61,3 +60,6 @@ class Menu(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()

@@ -14,7 +14,6 @@ def create_tables():
 class Desk(BaseModel):
     """Desk table definition and validation"""
 
-    id = PrimaryKeyField()
     number = IntegerField()
     capacity = IntegerField()
     status = CharField()
@@ -44,7 +43,7 @@ class Desk(BaseModel):
             'numeric max 3 digits',
             'numeric max 2 digits',
             'max 250 char',
-            'integer or decimal number and maximum 5 digits'
+            'max 10 digits and 5 decimal places'
         ]
 
         counter = 0
@@ -52,3 +51,6 @@ class Desk(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()

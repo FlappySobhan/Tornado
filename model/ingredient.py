@@ -13,7 +13,6 @@ def create_tables():
 
 class Ingredient(BaseModel):
 
-    id = PrimaryKeyField()
     name = CharField()
     quantity = IntegerField()
     unit = CharField()
@@ -47,7 +46,7 @@ class Ingredient(BaseModel):
             'numeric max 10 digits',
             'max 40 chars',
             'max 40 chars',
-            'integer or decimal number and maximum 5 digits'
+            'max 10 digits and 5 decimal places'
         ]
 
         counter = 0
@@ -55,3 +54,6 @@ class Ingredient(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
+
+
+create_tables()
