@@ -6,7 +6,7 @@ from model.configs import BaseModel
 from exceptions import StructureError
 
 
-def create_tables():
+def create_tables_desk():
     with db:
         db.create_tables([Desk])
 
@@ -19,8 +19,9 @@ class Desk(BaseModel):
     status = peewee.CharField()
     cost = peewee.DecimalField()
 
-    def __init__(self, number: int, capacity: int, status: str, cost: int | float) -> None:
+    def __init__(self, name: str, number: int, capacity: int, status: str, cost: int | float) -> None:
         super().__init__()
+        self.name = name
         self.number = number
         self.capacity = capacity
         self.status = status
@@ -32,6 +33,7 @@ class Desk(BaseModel):
         """Regex validator"""
 
         patterns = {
+            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
             'number': r'^\d{1,3}$',
             'capacity': r'^\d{1,2}$',
             'status': r'^.{1,250}$',
@@ -39,6 +41,7 @@ class Desk(BaseModel):
         }
 
         messages = [
+            'name 2~25 char',
             'numeric max 3 digits',
             'numeric max 2 digits',
             'max 250 char',
@@ -50,6 +53,3 @@ class Desk(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()

@@ -7,7 +7,7 @@ from model.user import Users
 from exceptions import StructureError
 
 
-def create_tables():
+def create_tables_extra():
     with db:
         db.create_tables([Extra])
 
@@ -54,6 +54,3 @@ class Extra(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()

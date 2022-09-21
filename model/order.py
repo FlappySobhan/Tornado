@@ -9,7 +9,7 @@ from model.desk import Desk
 from exceptions import StructureError
 
 
-def create_tables():
+def create_tables_order():
     with db:
         db.create_tables([Order])
 
@@ -22,11 +22,10 @@ class Order(BaseModel):
     code = peewee.CharField()
     cost = peewee.DecimalField()
     user = peewee.ForeignKeyField(Users, field="user_id")
-    menu = peewee.ForeignKeyField(Menu, field="menu_id")
     desk = peewee.ForeignKeyField(Desk, field="desk_id")
 
     def __init__(self, status: str, register: str, deliver: str, code: int, cost: int | float, user: int,
-                 menu: int, desk: int) -> None:
+                 desk: int) -> None:
         super().__init__()
         self.status = status
         self.register = register
@@ -34,7 +33,6 @@ class Order(BaseModel):
         self.code = code
         self.cost = cost
         self.user = user
-        self.menu = menu
         self.desk = desk
         Order.validation(self.__dict__['__data__'])
 
@@ -51,7 +49,6 @@ class Order(BaseModel):
             'code': r'^\d{1,5}$',
             'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
             'user': r'^\d{1,10}$',
-            'menu': r'^\d{1,10}$',
             'desk': r'^\d{1,10}$'
         }
 
@@ -60,8 +57,7 @@ class Order(BaseModel):
             'yyyy-mm-dd hh:mm:ss',
             'yyyy-mm-dd hh:mm:ss',
             'numeric max 5 digits',
-            'max 10 digits and 5 decimal places'
-            'max 10 digits',
+            'max 10 digits and 5 decimal places',
             'max 10 digits',
             'max 10 digits'
         ]
@@ -71,6 +67,3 @@ class Order(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()

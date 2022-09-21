@@ -7,7 +7,7 @@ from model.order import Order
 from exceptions import StructureError
 
 
-def create_tables():
+def create_tables_accounting():
     with db:
         db.create_tables([Accounting])
 
@@ -46,6 +46,3 @@ class Accounting(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()

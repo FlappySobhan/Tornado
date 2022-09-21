@@ -6,7 +6,7 @@ from model.configs import BaseModel
 from exceptions import StructureError
 
 
-def create_tables():
+def create_tables_menu():
     with db:
         db.create_tables([Menu])
 
@@ -59,6 +59,3 @@ class Menu(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()
