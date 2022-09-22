@@ -1,15 +1,9 @@
 import re
 import peewee
 
-from model.configs import db
 from model.configs import BaseModel
 from model.order import Order
 from exceptions import StructureError
-
-
-def create_tables():
-    with db:
-        db.create_tables([Receipts])
 
 
 class Receipts(BaseModel):
@@ -59,6 +53,3 @@ class Receipts(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()

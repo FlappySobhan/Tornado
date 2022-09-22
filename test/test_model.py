@@ -10,6 +10,7 @@ from model.menu import Menu
 from model.desk import Desk
 from model.accounting import Accounting
 from model.ingredient import Ingredient
+from model.contact import Contact
 from exceptions import StructureError
 
 
@@ -158,33 +159,32 @@ class TestReceiptsModel:
 class TestOrderModel:
 
     def test_order_success(self):
-        self.p1 = Order('waiting', '2002-10-10 14:23:16',
-                        '2002-10-10 14:23:16', 100, 10_000, 1, 1, 1)
+        self.p1 = Order('waiting', '2002-10-10 14:23:16', '2002-10-10 14:23:16', 100, 10_000, 1, 1)
         assert self.p1.status == 'waiting'
         assert self.p1.register == '2002-10-10 14:23:16'
         assert self.p1.deliver == '2002-10-10 14:23:16'
         assert self.p1.code == 100
         assert self.p1.cost == 10_000
 
-    @pytest.mark.parametrize('status, register, deliver, code, cost, user, menu, desk',
+    @pytest.mark.parametrize('status, register, deliver, code, cost, user, desk',
                              [
                                  ('', '2002-10-10 14:23:16',
-                                  '2002-10-10 14:23:16', 100, 10_000, 1, 1, 1),
+                                  '2002-10-10 14:23:16', 100, 10_000, 1, 1),
                                  ('waiting', 1234, '2002-10-10 14:23:16',
-                                  100, 10_000, 1, 1, 1),
+                                  100, 10_000, 1, 1),
                                  ('waiting', '2002-10-10 14:23:16',
-                                  1234, 100, 10_000, 1, 1, 1),
+                                  1234, 100, 10_000, 1, 1),
                                  ('waiting', '2002-10-10 14:23:16',
-                                  '2002-10-10 14:23:16', 'abc', 10_000, 1, 1, 1),
+                                  '2002-10-10 14:23:16', 'abc', 10_000, 1, 1),
                                  ('waiting', '2002-10-10 14:23:16',
-                                  '2002-10-10 14:23:16', 'abc', '', 1, 1, 1),
+                                  '2002-10-10 14:23:16', 'abc', '', 1, 1),
                                  ('waiting', '2002-10-10 14:23:16',
-                                  '2002-10-10 14:23:16', 'abc', 123456789, 1, 1, 1),
+                                  '2002-10-10 14:23:16', 'abc', 123456789, 1, 1),
                              ]
                              )
-    def test_order_raise(self, status, register, deliver, code, cost, user, menu, desk):
+    def test_order_raise(self, status, register, deliver, code, cost, user, desk):
         pytest.raises(StructureError, Order, status, register,
-                      deliver, code, cost, user, menu, desk)
+                      deliver, code, cost, user, desk)
 
 
 class TestMenuModel:
@@ -258,26 +258,30 @@ class TestIngredientModel:
 class TestDeskModel:
 
     def test_desk_success(self):
-        self.p1 = Desk(1, 2, 'free', 100)
+        self.p1 = Desk('strong', 1, 2, 'free', 100)
+        assert self.p1.name == 'strong'
         assert self.p1.number == 1
         assert self.p1.capacity == 2
         assert self.p1.status == 'free'
         assert self.p1.cost == 100
 
-    @pytest.mark.parametrize('number, capacity, status, cost',
+    @pytest.mark.parametrize('name, number, capacity, status, cost',
                              [
-                                 ('', 2, 'free', 100),
-                                 ('abc', 2, 'free', 100),
-                                 (12345, 2, 'free', 100),
-                                 (1, '', 'free', 100),
-                                 (1, 'a', 'free', 100),
-                                 (1, 12345, 'free', 100),
-                                 (1, 2, '', 100),
-                                 (1, 2, 'free', 'a')
+                                 (123, '', 2, 'free', 100),
+                                 ('', '', 2, 'free', 100),
+                                 ('strong', '', 2, 'free', 100),
+                                 ('strong', 'abc', 2, 'free', 100),
+                                 ('strong', 12345, 2, 'free', 100),
+                                 ('strong', 1, '', 'free', 100),
+                                 ('strong', 1, 'a', 'free', 100),
+                                 ('strong', 1, 12345, 'free', 100),
+                                 ('strong', 1, 2, '', 100),
+                                 ('strong', 1, 2, 'free', 'a')
                              ]
                              )
-    def test_desk_raise(self, number, capacity, status, cost):
-        pytest.raises(StructureError, Desk, number, capacity, status, cost)
+    def test_desk_raise(self, name, number, capacity, status, cost):
+        pytest.raises(StructureError, Desk, name,
+                      number, capacity, status, cost)
 
 
 class TestAccountingModel:
@@ -298,3 +302,26 @@ class TestAccountingModel:
                              )
     def test_accounting_raise(self, profit, description, order):
         pytest.raises(StructureError, Accounting, profit, description, order)
+
+
+class TestContactModel:
+
+    def test_contact_success(self):
+        self.p1 = Contact('strong', 'test@gmail.com', 'hello')
+        assert self.p1.name == 'strong'
+        assert self.p1.email == 'test@gmail.com'
+        assert self.p1.message == 'hello'
+
+    @pytest.mark.parametrize('name, email, message',
+                             [
+                                 ('', 'test@gmail.com', 'hello'),
+                                 ('strong', '@gmail.com', 'hello'),
+                                 ('strong', '@gmail.com', 'hello'),
+                                 ('strong', '@com', 'hello'),
+                                 ('strong', '@', 'hello'),
+                                 ('strong', 'test@gmail.com', ''),
+                                 (123, 'test@gmail.com', 'hello')
+                             ]
+                             )
+    def test_contact_raise(self, name, email, message):
+        pytest.raises(StructureError, Contact, name, email, message)

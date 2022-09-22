@@ -2,36 +2,33 @@ import re
 import peewee
 
 from model.configs import BaseModel
+from model.menu import Menu
 from model.order import Order
 from exceptions import StructureError
 
 
-class Accounting(BaseModel):
-    accounting_id = peewee.AutoField()
-    profit = peewee.DecimalField()
-    description = peewee.CharField()
-    order = peewee.ForeignKeyField(Order, field='order_id')
+class Items(BaseModel):
+    item_id = peewee.AutoField()
+    menu = peewee.ForeignKeyField(Menu, field="menu_id")
+    order = peewee.ForeignKeyField(Order, field="order_id")
 
-    def __init__(self, profit: int | float, description: str, order: int) -> None:
+    def __init__(self, menu: int, order: int) -> None:
         super().__init__()
-        self.profit = profit
-        self.description = description
+        self.menu = menu
         self.order = order
-        Accounting.validation(self.__dict__['__data__'])
+        Items.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
         """Regex validator"""
 
         patterns = {
-            'profit': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
-            'description': r'^.{1,250}$',
+            'menu': r'^\d{1,10}$',
             'order': r'^\d{1,10}$'
         }
 
         messages = [
-            'max 10 digits and 5 decimal places',
-            'max 250 chars',
+            'max 10 digits',
             'max 10 digits'
         ]
 

@@ -2,14 +2,8 @@ import re
 import peewee
 from datetime import datetime
 
-from model.configs import db
 from model.configs import BaseModel
 from exceptions import StructureError
-
-
-def create_tables():
-    with db:
-        db.create_tables([Users])
 
 
 class Users(BaseModel):
@@ -69,6 +63,3 @@ class Users(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()

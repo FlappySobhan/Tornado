@@ -1,16 +1,10 @@
 import re
 import peewee
 
-from model.configs import db
 from model.configs import BaseModel
 from model.menu import Menu
 from model.ingredient import Ingredient
 from exceptions import StructureError
-
-
-def create_tables():
-    with db:
-        db.create_tables([Recipe])
 
 
 class Recipe(BaseModel):
@@ -47,6 +41,3 @@ class Recipe(BaseModel):
             if not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1
-
-
-# create_tables()
