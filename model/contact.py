@@ -2,14 +2,8 @@ import re
 import peewee
 from datetime import datetime
 
-from model.configs import db
 from model.configs import BaseModel
 from exceptions import StructureError
-
-
-def create_tables_contact():
-    with db:
-        db.create_tables([Contact])
 
 
 class Contact(BaseModel):
@@ -33,13 +27,13 @@ class Contact(BaseModel):
         patterns = {
             'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
             'email': r'^[\w|.|-]+@\w*\.[\w|.]*$',
-            'message' : r'.',
+            'message': r'.'
         }
 
         messages = [
             'alphabetic 2~25 char',
             'standard email format',
-            'unlimited',
+            'unlimited'
         ]
 
         counter = 0

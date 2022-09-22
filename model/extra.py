@@ -1,15 +1,9 @@
 import re
 import peewee
 
-from model.configs import db
 from model.configs import BaseModel
 from model.user import Users
 from exceptions import StructureError
-
-
-def create_tables_extra():
-    with db:
-        db.create_tables([Extra])
 
 
 class Extra(BaseModel):

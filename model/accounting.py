@@ -1,15 +1,9 @@
 import re
 import peewee
 
-from model.configs import db
 from model.configs import BaseModel
 from model.order import Order
 from exceptions import StructureError
-
-
-def create_tables_accounting():
-    with db:
-        db.create_tables([Accounting])
 
 
 class Accounting(BaseModel):

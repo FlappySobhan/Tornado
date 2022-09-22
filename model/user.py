@@ -2,14 +2,8 @@ import re
 import peewee
 from datetime import datetime
 
-from model.configs import db
 from model.configs import BaseModel
 from exceptions import StructureError
-
-
-def create_tables_users():
-    with db:
-        db.create_tables([Users])
 
 
 class Users(BaseModel):

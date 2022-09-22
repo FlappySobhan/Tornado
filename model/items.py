@@ -1,16 +1,10 @@
 import re
 import peewee
 
-from model.configs import db
 from model.configs import BaseModel
 from model.menu import Menu
 from model.order import Order
 from exceptions import StructureError
-
-
-def create_tables_items():
-    with db:
-        db.create_tables([Items])
 
 
 class Items(BaseModel):

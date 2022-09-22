@@ -1,16 +1,10 @@
 import re
 import peewee
 
-from model.configs import db
 from model.configs import BaseModel
 from model.menu import Menu
 from model.ingredient import Ingredient
 from exceptions import StructureError
-
-
-def create_tables_recipe():
-    with db:
-        db.create_tables([Recipe])
 
 
 class Recipe(BaseModel):

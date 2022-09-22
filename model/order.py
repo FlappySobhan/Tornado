@@ -1,17 +1,10 @@
 import re
 import peewee
 
-from model.configs import db
 from model.configs import BaseModel
 from model.user import Users
-from model.menu import Menu
 from model.desk import Desk
 from exceptions import StructureError
-
-
-def create_tables_order():
-    with db:
-        db.create_tables([Order])
 
 
 class Order(BaseModel):
