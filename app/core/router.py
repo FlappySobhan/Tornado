@@ -1,5 +1,5 @@
 from flask import Flask
-from typing import Any
+from typing import Any, Callable
 
 
 class Handler:
@@ -12,7 +12,7 @@ class Route:
     __rules: list = []
     __endpoints: list = []
 
-    def __init__(self, rule: str, endpoint: str | None = None, view_func: None = None,
+    def __init__(self, rule: str, endpoint: str | None = None, view_func: Callable = None,
                  **options) -> None:
         self.rule = rule.strip()
         self.endpoint = endpoint
