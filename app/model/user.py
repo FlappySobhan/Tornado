@@ -3,7 +3,7 @@ import peewee
 from datetime import datetime
 
 from model.configs import BaseModel
-from exceptions import StructureError
+from core.exceptions import StructureError
 
 
 class Users(BaseModel):

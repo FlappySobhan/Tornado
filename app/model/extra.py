@@ -3,7 +3,7 @@ import peewee
 
 from model.configs import BaseModel
 from model.user import Users
-from exceptions import StructureError
+from core.exceptions import StructureError
 
 
 class Extra(BaseModel):

@@ -2,7 +2,7 @@ import re
 import peewee
 
 from model.configs import BaseModel
-from exceptions import StructureError
+from core.exceptions import StructureError
 
 
 class Desk(BaseModel):

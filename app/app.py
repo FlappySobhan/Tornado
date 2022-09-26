@@ -1,8 +1,8 @@
 from flask import Flask
 from decouple import config
 
-from views.urls import routes
-from views.utils import Router
+from core.urls import routes
+from core.router import Router
 from core.utils import create_tables
 
 create_tables()

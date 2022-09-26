@@ -11,10 +11,9 @@ from model.user import Users
 from model.items import Items
 from model.contact import Contact
 
-db = database()
-
 
 def create_tables():
+    db = database()
     with db:
         db.create_tables([Accounting, Desk, Extra, Ingredient,
                          Menu, Order, Receipts, Recipe, Users, Items, Contact])

@@ -11,7 +11,7 @@ from model.desk import Desk
 from model.accounting import Accounting
 from model.ingredient import Ingredient
 from model.contact import Contact
-from exceptions import StructureError
+from core.exceptions import StructureError
 
 
 class TestUserModel:
