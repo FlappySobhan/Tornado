@@ -1,6 +1,7 @@
 import re
 import peewee
 from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 from models.base import BaseModel
 from models.rule import Rule
@@ -16,7 +17,7 @@ class Users(BaseModel):
     password = peewee.CharField()
     balance = peewee.DecimalField()
     subscription = peewee.CharField()
-    created_at = peewee.DateTimeField(datetime.now())
+    created_at = peewee.DateTimeField(default=datetime.now())
     rule = peewee.ForeignKeyField(Rule, field="id")
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
@@ -32,6 +33,7 @@ class Users(BaseModel):
         self.subscription = subscription
         self.rule = rule
         Users.validation(self.__dict__['__data__'])
+        self.password = generate_password_hash(self.password, method="pbkdf2:sha256")
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -45,6 +47,7 @@ class Users(BaseModel):
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
             'balance': r'^[1-9]\d*(\.\d+)?$',
             'subscription': r'^\d{1,8}$',
+            'created_at': r'.*',
             'rule': r'^\d{1,10}$'
         }
 
@@ -56,6 +59,7 @@ class Users(BaseModel):
             'complex with 8~40 char',
             'numeric max 10 digits',
             'numeric max 8 digits',
+            'auto filled',
             'max 10 digits'
         ]
 
