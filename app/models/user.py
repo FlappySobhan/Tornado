@@ -2,24 +2,25 @@ import re
 import peewee
 from datetime import datetime
 
-from model.configs import BaseModel
+from models.base import BaseModel
+from models.rule import Rule
 from core.exceptions import StructureError
 
 
 class Users(BaseModel):
-    user_id = peewee.AutoField()
+    id = peewee.AutoField()
     name = peewee.CharField()
     family = peewee.CharField()
     phone = peewee.CharField()
     address = peewee.CharField()
     password = peewee.CharField()
     balance = peewee.DecimalField()
-    privilege = peewee.CharField()
     subscription = peewee.CharField()
     created_at = peewee.DateTimeField(datetime.now())
+    rule = peewee.ForeignKeyField(Rule, field="id")
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
-                 balance: int | float, subscription: int, privilege: str = 'public') -> None:
+                 balance: int | float, subscription: int, rule: int = 1) -> None:
 
         super().__init__()
         self.name = name
@@ -29,7 +30,7 @@ class Users(BaseModel):
         self.password = password
         self.balance = balance
         self.subscription = subscription
-        self.privilege = privilege
+        self.rule = rule
         Users.validation(self.__dict__['__data__'])
 
     @staticmethod
@@ -44,7 +45,7 @@ class Users(BaseModel):
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
             'balance': r'^[1-9]\d*(\.\d+)?$',
             'subscription': r'^\d{1,8}$',
-            'privilege': r'^.{1,40}$'
+            'rule': r'^\d{1,10}$'
         }
 
         messages = [
@@ -55,7 +56,7 @@ class Users(BaseModel):
             'complex with 8~40 char',
             'numeric max 10 digits',
             'numeric max 8 digits',
-            'max 40 chars'
+            'max 10 digits'
         ]
 
         counter = 0

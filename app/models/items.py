@@ -1,16 +1,16 @@
 import re
 import peewee
 
-from model.configs import BaseModel
-from model.menu import Menu
-from model.order import Order
+from models.base import BaseModel
+from models.menu import Menu
+from models.order import Order
 from core.exceptions import StructureError
 
 
 class Items(BaseModel):
-    item_id = peewee.AutoField()
-    menu = peewee.ForeignKeyField(Menu, field="menu_id")
-    order = peewee.ForeignKeyField(Order, field="order_id")
+    id = peewee.AutoField()
+    menu = peewee.ForeignKeyField(Menu, field="id")
+    order = peewee.ForeignKeyField(Order, field="id")
 
     def __init__(self, menu: int, order: int) -> None:
         super().__init__()

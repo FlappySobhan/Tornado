@@ -1,16 +1,16 @@
 import re
 import peewee
 
-from model.configs import BaseModel
-from model.order import Order
+from models.base import BaseModel
+from models.order import Order
 from core.exceptions import StructureError
 
 
 class Accounting(BaseModel):
-    accounting_id = peewee.AutoField()
+    id = peewee.AutoField()
     profit = peewee.DecimalField()
     description = peewee.CharField()
-    order = peewee.ForeignKeyField(Order, field='order_id')
+    order = peewee.ForeignKeyField(Order, field='id')
 
     def __init__(self, profit: int | float, description: str, order: int) -> None:
         super().__init__()

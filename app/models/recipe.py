@@ -1,21 +1,23 @@
 import re
 import peewee
 
-from model.configs import BaseModel
-from model.menu import Menu
-from model.ingredient import Ingredient
+from models.base import BaseModel
+from models.menu import Menu
+from models.ingredient import Ingredient
 from core.exceptions import StructureError
 
 
 class Recipe(BaseModel):
-    recipe_id = peewee.AutoField()
-    cost = peewee.DecimalField()
-    menu = peewee.ForeignKeyField(Menu, field="menu_id")
-    ingredient = peewee.ForeignKeyField(Ingredient, field="ingredient_id")
+    """Recipe table definition and validation"""
 
-    def __init__(self, cost: int | float, menu: int, ingredient: int) -> None:
+    id = peewee.AutoField()
+    quantity = peewee.DecimalField()
+    menu = peewee.ForeignKeyField(Menu, field="id")
+    ingredient = peewee.ForeignKeyField(Ingredient, field="id")
+
+    def __init__(self, quantity: int | float, menu: int, ingredient: int) -> None:
         super().__init__()
-        self.cost = cost
+        self.quantity = quantity
         self.menu = menu
         self.ingredient = ingredient
         Recipe.validation(self.__dict__['__data__'])
@@ -25,7 +27,7 @@ class Recipe(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'cost': r'^(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)$',
+            'quantity': r'^(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)$',
             'menu': r'^\d{1,10}$',
             'ingredient': r'^\d{1,10}$'
         }

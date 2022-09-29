@@ -157,3 +157,5 @@ cython_debug/
 *.sql
 .vscode
 .idea
+report.xml
+.pytest_cache

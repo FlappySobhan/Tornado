@@ -1,13 +1,13 @@
 import re
 import peewee
 
-from model.configs import BaseModel
+from models.base import BaseModel
 from core.exceptions import StructureError
 
 
 class Desk(BaseModel):
     """Desk table definition and validation"""
-    desk_id = peewee.AutoField()
+    id = peewee.AutoField()
     number = peewee.IntegerField()
     capacity = peewee.IntegerField()
     status = peewee.CharField()

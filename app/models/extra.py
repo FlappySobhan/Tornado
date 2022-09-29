@@ -1,18 +1,18 @@
 import re
 import peewee
 
-from model.configs import BaseModel
-from model.user import Users
+from models.base import BaseModel
+from models.user import Users
 from core.exceptions import StructureError
 
 
 class Extra(BaseModel):
-    extra_id = peewee.AutoField()
+    id = peewee.AutoField()
     email = peewee.CharField()
     phone = peewee.CharField()
     address = peewee.CharField()
     info = peewee.TextField()
-    user = peewee.ForeignKeyField(Users, field="user_id")
+    user = peewee.ForeignKeyField(Users, field="id")
 
     def __init__(self, email: str, phone: str, address: str, info: str, user: int) -> None:
         super().__init__()
