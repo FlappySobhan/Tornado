@@ -13,10 +13,11 @@ class Category(BaseModel):
     parent = peewee.CharField()
     relation = peewee.ForeignKeyField('self', field='id', null=True)
 
-    def __init__(self, name: str, parent: str) -> None:
+    def __init__(self, name: str, parent: str, relation: int = None) -> None:
         super().__init__()
         self.name = name
         self.parent = parent
+        self.relation = relation
         Category.validation(self.__dict__['__data__'])
 
     @staticmethod
@@ -25,12 +26,14 @@ class Category(BaseModel):
 
         patterns = {
             'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
-            'parent': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$'
+            'parent': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
+            'relation': r'^\d{1,10}$'
         }
 
         messages = [
             'name 2~25 char',
-            'name 2~25 char'
+            'name 2~25 char',
+            'max 10 digits'
         ]
 
         counter = 0

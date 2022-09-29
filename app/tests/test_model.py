@@ -10,6 +10,7 @@ from models.order import Order
 from models.extra import Extra
 from models.menu import Menu
 from models.desk import Desk
+from models.category import Category
 from models.accounting import Accounting
 from models.ingredient import Ingredient
 from models.contact import Contact
@@ -359,3 +360,23 @@ class TestContactModel:
                              )
     def test_contact_raise(self, name, email, message, user):
         pytest.raises(StructureError, Contact, name, email, message, user)
+
+
+# -------------------------------------------------------------------------------------------
+#                                       TestCategoryModel
+# -------------------------------------------------------------------------------------------
+class TestCategoryModel:
+
+    def test_coupon_success(self):
+        self.p1 = Category('drink', 'coffee', 1)
+        assert self.p1.name == 'drink'
+        assert self.p1.parent == 'coffee'
+
+    @pytest.mark.parametrize('name, parent, relation',
+                             [
+                                 ('', 'test', ''),
+                                 ('test', '', '')
+                             ]
+                             )
+    def test_coupon_raise(self, name, parent, relation):
+        pytest.raises(StructureError, Category, name, parent, relation)
