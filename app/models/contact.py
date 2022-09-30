@@ -12,10 +12,10 @@ class Contact(BaseModel):
     name = peewee.CharField()
     email = peewee.CharField()
     message = peewee.TextField()
-    created_at = peewee.DateTimeField(datetime.now())
+    created_at = peewee.DateTimeField(default=datetime.now())
     user = peewee.ForeignKeyField(Users, field="id", null=True)
 
-    def __init__(self, name: str, email: str, message: str, user: int = None) -> None:
+    def __init__(self, name: str, email: str, message: str, user: int | None = None) -> None:
         super().__init__()
         self.name = name
         self.email = email
@@ -28,16 +28,18 @@ class Contact(BaseModel):
         """Regex validator"""
 
         patterns = {
+            'created_at': r'.',
             'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
             'email': r'^[\w|.|-]+@\w*\.[\w|.]*$',
             'message': r'.',
-            'user': r'^\d{1,10}|$'
+            'user': r'^\d{1,10}|None$'
         }
 
         messages = [
+            'auto fill',
             'alphabetic 2~25 char',
             'standard email format',
-            'unlimited',
+            'should be not empty',
             'empty or max 10 digits'
         ]
 
