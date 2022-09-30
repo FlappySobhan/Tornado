@@ -1,6 +1,7 @@
 import re
 import peewee
 from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 from models.base import BaseModel
 from models.rule import Rule
@@ -16,7 +17,7 @@ class Users(BaseModel):
     password = peewee.CharField()
     balance = peewee.DecimalField()
     subscription = peewee.CharField()
-    created_at = peewee.DateTimeField(datetime.now())
+    created_at = peewee.DateTimeField(default=datetime.now())
     rule = peewee.ForeignKeyField(Rule, field="id")
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
@@ -32,23 +33,26 @@ class Users(BaseModel):
         self.subscription = subscription
         self.rule = rule
         Users.validation(self.__dict__['__data__'])
+        self.password = generate_password_hash(self.password, method="pbkdf2:sha256")
 
     @staticmethod
     def validation(data: dict) -> None:
         """Regex validator"""
 
         patterns = {
+            'created_at': r'.*',
             'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
             'family': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
-            'balance': r'^[1-9]\d*(\.\d+)?$',
+            'balance': r'^\d+(\.\d+)?$',
             'subscription': r'^\d{1,8}$',
             'rule': r'^\d{1,10}$'
         }
 
         messages = [
+            'auto filled',
             'alphabetic 2~25 char',
             'alphabetic 2~25 char',
             'numeric, 10 primary digits',

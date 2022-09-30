@@ -1,5 +1,6 @@
 import pytest
 from decouple import config
+from werkzeug.security import check_password_hash
 
 from models.coupon import Coupon
 from models.rule import Rule
@@ -99,7 +100,7 @@ class TestUserModel:
         assert self.p1.family == 'bobs'
         assert self.p1.phone == '09123536842'
         assert self.p1.address == 'iran-mashhad'
-        assert self.p1.password == config('SECURITY_PASS_TEST')
+        assert check_password_hash(self.p1.password, config('SECURITY_PASS_TEST'))
         assert self.p1.balance == 100
         assert self.p1.subscription == 55
 
