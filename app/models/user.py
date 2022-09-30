@@ -40,18 +40,19 @@ class Users(BaseModel):
         """Regex validator"""
 
         patterns = {
+            'created_at': r'.*',
             'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
             'family': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
-            'balance': r'^[1-9]\d*(\.\d+)?$',
+            'balance': r'^\d+(\.\d+)?$',
             'subscription': r'^\d{1,8}$',
-            'created_at': r'.*',
             'rule': r'^\d{1,10}$'
         }
 
         messages = [
+            'auto filled',
             'alphabetic 2~25 char',
             'alphabetic 2~25 char',
             'numeric, 10 primary digits',
@@ -59,7 +60,6 @@ class Users(BaseModel):
             'complex with 8~40 char',
             'numeric max 10 digits',
             'numeric max 8 digits',
-            'auto filled',
             'max 10 digits'
         ]
 
