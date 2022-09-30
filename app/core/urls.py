@@ -5,6 +5,7 @@ from views.order import new_order
 from views.order import show_order
 from views.order import delete_order
 from views.error import not_found
+from views.contact import contact, contact_us
 
 routes = [
     Route("/", endpoint=None, view_func=home),
@@ -14,7 +15,8 @@ routes = [
     Route("/order/show/{table_id}", endpoint=None, view_func=show_order),
     Route("/order/delete/{table_id}", endpoint=None,
           view_func=delete_order, methods=['DELETE']),
-
+    Route("/contact_us/", endpoint=None, view_func=contact_us, methods=['GET', 'POST']),
+    Route("/contact/", endpoint=None, view_func=contact, methods=['GET', 'POST']),
 
     # Handlers:
     Handler(404, not_found)
