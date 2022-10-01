@@ -31,7 +31,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <form class="p-3" action="javascript:void(0);" id="signup" name="signupform">
+                        <form class="p-3" action="javascript:void(0);" id="signup" name="signupform"
+                            onsubmit="signupfunc();">
                             <div class="row g-2 mb-3">
                                 <div class="col-sm">
                                     <div class="form-floating has-validation">
@@ -104,11 +105,12 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between text-center mt-4">
-                                <div class="col-6 col-sm-4 mt-2"><button type="submit"
+                                <div class="col-6 col-sm-4 mt-2"><button id="signupSubmit" type="submit"
                                         class="btn btn btn-outline-success w-100">ثبت‌نام کن</button>
                                 </div>
-                                <div class="col-6 col-sm-4 mt-2"><button type="reset" class="btn btn-outline-secondary w-100"
-                                        data-bs-target="#Loginmodal" data-bs-toggle="modal">اکانت دارید؟</button>
+                                <div class="col-6 col-sm-4 mt-2"><button type="reset"
+                                        class="btn btn-outline-secondary w-100" data-bs-target="#Loginmodal"
+                                        data-bs-toggle="modal">اکانت دارید؟</button>
                                 </div>
                             </div>
                         </form>
@@ -163,8 +165,9 @@
                                 <div class="col-6 col-sm-4 mt-2"><button type="submit"
                                         class="btn btn btn-outline-success w-100">ورود</button>
                                 </div>
-                                <div class="col-6 col-sm-4 mt-2"><button type="reset" class="btn btn-outline-secondary w-100"
-                                        data-bs-target="#Signupmodal" data-bs-toggle="modal">ثبت‌نام</button>
+                                <div class="col-6 col-sm-4 mt-2"><button type="reset"
+                                        class="btn btn-outline-secondary w-100" data-bs-target="#Signupmodal"
+                                        data-bs-toggle="modal">ثبت‌نام</button>
                                 </div>
                             </div>
                         </form>
@@ -181,6 +184,70 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // give this value to app.py with ajax
+
+        function signupfunc() {
+            // event.preventDefault();
+            $.ajax({
+                url: 'http://127.0.0.1:5005/login',
+                type: 'POST',
+                data: {
+                    "firstname": $('#firstname').val(),
+                    "lastname": $('#lastname').val(),
+                    "phone": $('#phone').val(),
+                    "address": $('#address').val(),
+                    "password": $('#Password').val()
+                },
+                // if success alert something from flask flash
+                success: function (data) {
+                    if (data['success'] === true) {
+                        swal.fire({
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: 'learn-more'
+                            },
+                            title: 'ثبت‌نام با موفقیت انجام شد',
+                            confirmButtonText: 'باشه'
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload()
+                            }
+                        })
+
+
+
+
+                    } else {
+                        document.getElementById("signup").reset();
+                        swal.fire({
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: 'learn-more'
+
+
+                            },
+                            icon: 'warning',
+                            title: 'خطا',
+                            text: data['err'],
+                            confirmButtonColor: '#fff0cf',
+                            confirmButtonText: 'باشه'
+
+                        })
+                    }
+                },
+                error: function () {
+                    alert("خطا در ارتباط")
+                }
+            });
+
+        };
+
+    </script>
+
 </body>
 
 </html>
