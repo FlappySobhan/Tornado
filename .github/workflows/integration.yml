@@ -40,6 +40,12 @@ jobs:
 
       - name: UnitTest
         env:
+          DATABASE: ${{ secrets.DATABASE }}
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          FLASK_SECRET_KEY: ${{ secrets.FLASK_SECRET_KEY }}
           SECURITY_PASS_TEST: ${{ secrets.SECURITY_PASS_TEST }}
         
         run: |
