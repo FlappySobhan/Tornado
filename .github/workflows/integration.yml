@@ -2,6 +2,7 @@ name: Jeff-Integration
 
 on: [pull_request, push]
 
+
 jobs:
   lint_python:
     runs-on: ubuntu-latest
@@ -38,6 +39,15 @@ jobs:
         run:  mypy . --ignore-missing-imports --install-types --non-interactive
 
       - name: UnitTest
+        env:
+          DATABASE: ${{ secrets.DATABASE }}
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          FLASK_SECRET_KEY: ${{ secrets.FLASK_SECRET_KEY }}
+          SECURITY_PASS_TEST: ${{ secrets.SECURITY_PASS_TEST }}
+        
         run: |
           pytest . --exitfirst --verbose --failed-first
           pytest . --doctest-modules || true
