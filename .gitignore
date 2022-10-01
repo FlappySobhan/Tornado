@@ -159,3 +159,4 @@ cython_debug/
 .idea
 report.xml
 .pytest_cache
+.env
