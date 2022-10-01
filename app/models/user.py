@@ -12,7 +12,7 @@ class Users(BaseModel):
     id = peewee.AutoField()
     name = peewee.CharField()
     family = peewee.CharField()
-    phone = peewee.CharField()
+    phone = peewee.CharField(unique=True)
     address = peewee.CharField()
     password = peewee.CharField()
     balance = peewee.DecimalField()
@@ -21,9 +21,9 @@ class Users(BaseModel):
     rule = peewee.ForeignKeyField(Rule, field="id")
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
-                 balance: int | float, subscription: int, rule: int = 1) -> None:
+                 balance: int | float, subscription: int, rule: int = 1, *args, **kwargs) -> None:
 
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self.name = name
         self.family = family
         self.phone = phone
@@ -48,7 +48,8 @@ class Users(BaseModel):
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
             'balance': r'^\d+(\.\d+)?$',
             'subscription': r'^\d{1,8}$',
-            'rule': r'^\d{1,10}$'
+            'rule': r'^\d{1,10}$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
@@ -60,7 +61,8 @@ class Users(BaseModel):
             'complex with 8~40 char',
             'numeric max 10 digits',
             'numeric max 8 digits',
-            'max 10 digits'
+            'max 10 digits',
+            'numeric'
         ]
 
         counter = 0
