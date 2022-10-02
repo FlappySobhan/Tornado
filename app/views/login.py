@@ -1,10 +1,6 @@
 from flask import render_template, request, jsonify, redirect, url_for
 from core.exceptions import StructureError
 from models.user import Users
-from models.rule import Rule
-
-x = Rule("admin")
-x.save()
 
 
 def login_us():
