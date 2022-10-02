@@ -13,8 +13,8 @@ class Category(BaseModel):
     parent = peewee.CharField()
     relation = peewee.ForeignKeyField('self', field='id', null=True)
 
-    def __init__(self, name: str, parent: str, relation: int = None) -> None:
-        super().__init__()
+    def __init__(self, name: str, parent: str, relation: int | None = None, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.name = name
         self.parent = parent
         self.relation = relation
@@ -25,15 +25,17 @@ class Category(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
-            'parent': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
-            'relation': r'^\d{1,10}$'
+            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
+            'parent': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
+            'relation': r'^\d{1,10}|None$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
             'name 2~25 char',
-            'name 2~25 char',
-            'max 10 digits'
+            'parent 2~25 char',
+            'empty or max 10 digits',
+            'numeric',
         ]
 
         counter = 0

@@ -1,6 +1,11 @@
-# from flask import url_for, request, template_rendered
+from flask import render_template, request
+from models.menu import Menu
 
 
 def menu():
-    # return template_rendered()
-    pass
+    if request.method == 'GET':
+        menu = []
+        query = Menu.select()
+        for i in query:
+            menu.append(i)
+        return render_template('menu.html', result=menu)

@@ -232,29 +232,35 @@ class TestOrderModel:
 class TestMenuModel:
 
     def test_menu_success(self):
-        self.p1 = Menu('coffee', 10_000, 1_000, '00:10:00', 1)
+        self.p1 = Menu('coffee', 10_000, 1_000, '00:10:00', 'so delicious', 'example.png', 1)
         assert self.p1.name == 'coffee'
         assert self.p1.price == 10_000
         assert self.p1.discount == 1_000
         assert self.p1.preparation == '00:10:00'
+        assert self.p1.info == 'so delicious'
+        assert self.p1.picture == 'example.png'
 
-    @pytest.mark.parametrize('name, price, discount, preparation, category',
+    @pytest.mark.parametrize('name, price, discount, preparation, info, picture, category',
                              [
-                                 ('', 10_000, 1_000, '00:10:00', 1),
-                                 (123, 10_000, 1_000, '00:10:00', 1),
-                                 ('coffee', 'abc', 1_000, '00:10:00', 1),
-                                 ('coffee', 10_000, .12345678, '00:10:00', 1),
-                                 ('coffee', 10_000, 1_000, 'abc', 1),
-                                 ('coffee', 10_000, 1_000, 123, 1),
-                                 ('coffee', 10_000, 1_000, '', 1),
-                                 ('coffee', 10_000, 1_000, '00=10=00', 1),
-                                 ('coffee', 10_000, 1_000, '10=00', 1),
-                                 ('coffee', 10_000, 1_000, '00:10=00', 1),
-                                 ('coffee', 10_000, 1_000, '00:10:00:00', 1)
+                                 ('', 10_000, 1_000, '00:10:00', 'so delicious', 'example.png', 1),
+                                 (123, 10_000, 1_000, '00:10:00', 'so delicious', 'example.png', 1),
+                                 ('coffee', 'abc', 1_000, '00:10:00', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, .12345678, '00:10:00', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, 'abc', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, 123, 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, '', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, '00=10=00', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, '10=00', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, '00:10=00', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, '00:10:00:00', 'so delicious', 'example.png', 1),
+                                 ('coffee', 10_000, 1_000, '00:10:00', 'so delicious', 'example', 1),
+                                 ('coffee', 10_000, 1_000, '00:10:00', 'so delicious', 'exam.txt', 1),
+                                 ('coffee', 10_000, 1_000, '00:10:00', 'so delicious', 'jpg', 1),
+
                              ]
                              )
-    def test_menu_raise(self, name, price, discount, preparation, category):
-        pytest.raises(StructureError, Menu, name, price, discount, preparation, category)
+    def test_menu_raise(self, name, price, discount, preparation, info, picture, category):
+        pytest.raises(StructureError, Menu, name, price, discount, preparation, info, picture, category)
 
 
 # -------------------------------------------------------------------------------------------
