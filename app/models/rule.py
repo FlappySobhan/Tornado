@@ -9,8 +9,8 @@ class Rule(BaseModel):
     id = peewee.AutoField()
     rule = peewee.CharField()
 
-    def __init__(self, rule: str) -> None:
-        super().__init__()
+    def __init__(self, rule: str, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.rule = rule
         Rule.validation(self.__dict__['__data__'])
 
@@ -19,11 +19,13 @@ class Rule(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'rule': r'^(customer|employee|admin)$'
+            'rule': r'^(customer|employee|admin)$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
-            'customer OR employee OR admin'
+            'customer OR employee OR admin',
+            'auto filled'
         ]
 
         counter = 0

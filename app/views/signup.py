@@ -1,13 +1,9 @@
-from flask import render_template, request, jsonify, redirect, url_for
+from flask import request, jsonify, redirect, url_for
 from core.exceptions import StructureError
 from models.user import Users
 
 
-def login_us():
-    return render_template("form.html")
-
-
-def login():
+def signup():
     if request.method == 'POST':
         # Get the form data
 
@@ -18,12 +14,14 @@ def login():
         password = request.form.get('password')
         # Send the message
         try:
-            user = Users(firstname, lastname, phone, address, password, 0, 0)
-            user.save()
+            user = Users(firstname, lastname, phone, address, password, 0, 0, 1)
+            x = Users.select().where(Users.phone == phone)[Users.phone]
+            print(x)
+            if x:
+                return jsonify({'success': False, 'err': 'این کاربر پیش‌تر ثبت‌نام کرده است'})
         except StructureError as e:
             return jsonify({'success': False, 'err': str(e)})
-        except Exception:
-            return jsonify({'success': False, 'err': 'این کاربر پیش‌تر ثبت‌نام کرده است'})
         else:
+            user.save()
             return jsonify({'success': True})
-    return redirect(url_for('login_us'))
+    return redirect(url_for('home'))

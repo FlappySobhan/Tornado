@@ -1,26 +1,14 @@
+
 @font-face {
   font-family: IRKharazmi;
   src: url(../fonts/IRAN\ Kharazmi.woff);
 }
-
-.active,
-a:hover {
-  color: rgb(156, 135, 0) !important;
-}
-
-li>a {
-  color: black !important;
-}
-
-.nav-bg {
-  background-color: rgb(255, 221, 167);
-}
-
-#top-nav {
-  font-family: IRKharazmi;
-  border-color: rgb(117, 97, 0) !important;
-}
-
+.active,a:hover{color: rgb(156, 135, 0)!important;}
+li>a{color: black !important;}
+.nav-bg{background-color: rgb(255, 221, 167);}
+#top-nav{font-family:IRKharazmi;border-color: rgb(117, 97, 0)!important;}
+.bg-mycolor{background-color: rgb(179, 163, 110);}
+.bg-mycolor-light{background-color: rgb(234, 214, 177);}
 
 button.learn-more {
   font-weight: 600;
@@ -62,38 +50,4 @@ button.learn-more:active {
 button.learn-more:active::before {
   box-shadow: 0 0 0 2px #dad1c4, 0 0 #ffeae2;
   transform: translate3d(0, 0, -1em);
-}
-
-.carousel-inner img {
-  width: 100%;
-  height: 100%;
-}
-
-.carousel-caption {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.carousel-caption h1 {
-  font-size: 500%;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 15px #f7f3cf;
-}
-
-.carousel-caption h3 {
-  font-size: 200%;
-  font-weight: 500;
-  text-shadow: 1px 1px 10px #f3f0d0;
-  padding-bottom: 1rem;
-}
-
-.btn-secondary {
-  background-color: #918937;
-  border: 1px solid #b8b057;
-}
-
-.btn-secondary:hover {
-  background-color: #bbb35e;
-  border: 1px solid #ada336;
 }

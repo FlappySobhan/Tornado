@@ -49,5 +49,5 @@ class Router:
             if isinstance(route, Handler):
                 self.app.register_error_handler(route.code, route.view_func)
             else:
-                print(vars(route))
+                # print(vars(route))
                 self.app.add_url_rule(**vars(route))

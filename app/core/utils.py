@@ -42,3 +42,10 @@ def generate_data():
                 strong shots and is the base for many coffee drinks. it has less caffeine per serving.""",
                      '../static/img/A_small_cup_of_coffee.jpg', int(i/5) + 1)
             m.save()
+
+    try:
+        r = Rule.select().get()
+    except Exception:
+        for item in ['customer', 'employee', 'admin']:
+            r = Rule(item)
+            r.save()
