@@ -12,7 +12,10 @@ class Rule(BaseModel):
     def __init__(self, rule: str, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.rule = rule
-        Rule.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Rule.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:

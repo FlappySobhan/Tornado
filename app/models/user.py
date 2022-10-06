@@ -32,31 +32,30 @@ class Users(BaseModel):
         self.balance = balance
         self.subscription = subscription
         self.rule = rule
-        psw = r'.*'
+
+        # if we are in registering new data then validate the fields
         if not kwargs.get('id'):
-            psw = r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$'
+            Users.validation(self.__dict__['__data__'])
             self.password = generate_password_hash(self.password, method="pbkdf2:sha256")
-        Users.validation(self.__dict__['__data__'], psw)
 
     @staticmethod
-    def validation(data: dict, psw) -> None:
+    def validation(data: dict) -> None:
         """Regex validator"""
 
         patterns = {
-            'id': r'^\d{1,}$',
             'created_at': r'.*',
             'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
             'family': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
-            'password': psw,
+            'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
             'balance': r'^\d+(\.\d+)?$',
             'subscription': r'^\d{1,8}$',
-            'rule': r'^\d{1,10}$'
+            'rule': r'^\d{1,10}$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
-            'auto filled',
             'auto filled',
             'alphabetic 2~25 char',
             'alphabetic 2~25 char',
@@ -65,7 +64,8 @@ class Users(BaseModel):
             'complex with 8~40 char',
             'numeric max 10 digits',
             'numeric max 8 digits',
-            'max 10 digits'
+            'max 10 digits',
+            'auto filled'
         ]
 
         counter = 0

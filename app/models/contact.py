@@ -15,13 +15,16 @@ class Contact(BaseModel):
     created_at = peewee.DateTimeField(default=datetime.now())
     user = peewee.ForeignKeyField(Users, field="id", null=True)
 
-    def __init__(self, name: str, email: str, message: str, user: int | None = None) -> None:
-        super().__init__()
+    def __init__(self, name: str, email: str, message: str, user: int | None = None, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.name = name
         self.email = email
         self.message = message
         self.user = user
-        Contact.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Contact.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -29,10 +32,11 @@ class Contact(BaseModel):
 
         patterns = {
             'created_at': r'.',
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
+            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
             'email': r'^[\w|.|-]+@\w*\.[\w|.]*$',
             'message': r'.',
-            'user': r'^\d{1,10}|None$'
+            'user': r'^\d{1,10}|None$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
@@ -40,7 +44,8 @@ class Contact(BaseModel):
             'alphabetic 2~25 char',
             'standard email format',
             'should be not empty',
-            'empty or max 10 digits'
+            'empty or max 10 digits',
+            'auto filled'
         ]
 
         counter = 0

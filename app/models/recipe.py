@@ -15,12 +15,15 @@ class Recipe(BaseModel):
     menu = peewee.ForeignKeyField(Menu, field="id")
     ingredient = peewee.ForeignKeyField(Ingredient, field="id")
 
-    def __init__(self, quantity: int | float, menu: int, ingredient: int) -> None:
-        super().__init__()
+    def __init__(self, quantity: int | float, menu: int, ingredient: int, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.quantity = quantity
         self.menu = menu
         self.ingredient = ingredient
-        Recipe.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Recipe.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -29,13 +32,15 @@ class Recipe(BaseModel):
         patterns = {
             'quantity': r'^(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)$',
             'menu': r'^\d{1,10}$',
-            'ingredient': r'^\d{1,10}$'
+            'ingredient': r'^\d{1,10}$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
             'max 10 digits and 5 decimal places',
             'max 10 digits',
-            'max 10 digits'
+            'max 10 digits',
+            'auto filled'
         ]
 
         counter = 0

@@ -12,12 +12,15 @@ class Accounting(BaseModel):
     description = peewee.CharField()
     order = peewee.ForeignKeyField(Order, field='id')
 
-    def __init__(self, profit: int | float, description: str, order: int) -> None:
-        super().__init__()
+    def __init__(self, profit: int | float, description: str, order: int, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.profit = profit
         self.description = description
         self.order = order
-        Accounting.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Accounting.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -26,13 +29,15 @@ class Accounting(BaseModel):
         patterns = {
             'profit': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
             'description': r'^.{1,250}$',
-            'order': r'^\d{1,10}$'
+            'order': r'^\d{1,10}$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
             'max 10 digits and 5 decimal places',
             'max 250 chars',
-            'max 10 digits'
+            'max 10 digits',
+            'auto filled'
         ]
 
         counter = 0
