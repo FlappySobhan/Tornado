@@ -33,14 +33,14 @@ class TestFlask():
             assert 'text/html' in response.content_type
             assert response.data != ''
 
-        def test_menu_success(self, setUp):
+        def test_home_success(self, setUp):
             response = self.client.get('/')
             assert response.status_code == 200
             assert response.charset == 'utf-8'
             assert 'text/html' in response.content_type
             assert response.data != ''
 
-        def test_menu_fails(self, setUp):
+        def test_home_fails(self, setUp):
             response = self.client.post('/')
             assert response.status_code == 405
 
