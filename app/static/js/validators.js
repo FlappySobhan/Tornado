@@ -28,8 +28,8 @@ function validatephone(phone) {
 function confirmpass() {
     var pass = document.getElementById('Password');
     var cpass = document.getElementById('ConfirmPassword');
-    var valid = pass.classList.contains("is-valid")
-    if (cpass.value != pass.value || !valid) {
+
+    if (cpass.value != pass.value) {
         cpass.classList.add("is-invalid")
         cpass.classList.remove("is-valid")
         return false

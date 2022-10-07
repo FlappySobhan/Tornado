@@ -21,7 +21,7 @@ class Users(BaseModel):
     rule = peewee.ForeignKeyField(Rule, field="id")
 
     def __init__(self, name: str, family: str, phone: str, address: str, password: str,
-                 balance: int | float, subscription: int, rule: int = 1, *args, **kwargs) -> None:
+                 balance: int | float, subscription: int, rule: int, *args, **kwargs) -> None:
 
         super().__init__(*args, **kwargs)
         self.name = name
@@ -32,8 +32,11 @@ class Users(BaseModel):
         self.balance = balance
         self.subscription = subscription
         self.rule = rule
-        Users.validation(self.__dict__['__data__'])
-        self.password = generate_password_hash(self.password, method="pbkdf2:sha256")
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Users.validation(self.__dict__['__data__'])
+            self.password = generate_password_hash(self.password, method="pbkdf2:sha256")
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -41,8 +44,8 @@ class Users(BaseModel):
 
         patterns = {
             'created_at': r'.*',
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
-            'family': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){2,25}$',
+            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
+            'family': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
@@ -62,7 +65,7 @@ class Users(BaseModel):
             'numeric max 10 digits',
             'numeric max 8 digits',
             'max 10 digits',
-            'numeric'
+            'auto filled'
         ]
 
         counter = 0

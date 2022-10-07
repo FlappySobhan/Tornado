@@ -10,11 +10,14 @@ class Coupon(BaseModel):
     code = peewee.CharField()
     amount = peewee.DecimalField()
 
-    def __init__(self, code: str, amount: int | float) -> None:
-        super().__init__()
+    def __init__(self, code: str, amount: int | float, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.code = code
         self.amount = amount
-        Coupon.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Coupon.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -22,12 +25,14 @@ class Coupon(BaseModel):
 
         patterns = {
             'code': r'^.{1,50}$',
-            'amount': r'^(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)$'
+            'amount': r'^(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
             'max 50 char',
-            'max 10 digits and 5 decimal places'
+            'max 10 digits and 5 decimal places',
+            'auto filled'
         ]
 
         counter = 0

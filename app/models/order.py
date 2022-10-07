@@ -22,8 +22,8 @@ class Order(BaseModel):
     coupon = peewee.ForeignKeyField(Coupon, field="id")
 
     def __init__(self, deliver: str, code: int, cost: int | float, user: int,
-                 desk: int, status: int, coupon: int) -> None:
-        super().__init__()
+                 desk: int, status: int, coupon: int, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.deliver = deliver
         self.code = code
         self.cost = cost
@@ -31,7 +31,10 @@ class Order(BaseModel):
         self.desk = desk
         self.status = status
         self.coupon = coupon
-        Order.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Order.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -45,7 +48,8 @@ class Order(BaseModel):
             'user': r'^\d{1,10}$',
             'desk': r'^\d{1,10}$',
             'status': r'^\d{1,10}$',
-            'coupon': r'^\d{1,10}$'
+            'coupon': r'^\d{1,10}$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
@@ -55,7 +59,8 @@ class Order(BaseModel):
             'max 10 digits',
             'max 10 digits',
             'max 10 digits',
-            'max 10 digits'
+            'max 10 digits',
+            'auto filled'
         ]
 
         counter = 0

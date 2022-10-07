@@ -27,7 +27,10 @@ class Menu(BaseModel):
         self.info = info
         self.picture = picture
         self.category = category
-        Menu.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Menu.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -41,7 +44,7 @@ class Menu(BaseModel):
             'info': r'.',
             'picture': r'^(.+\.png|.+\.jpg|.+\.gif)$',
             'category': r'^\d{1,10}$',
-            'id': r'^\d{1,}$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
@@ -53,6 +56,7 @@ class Menu(BaseModel):
             'standard picture extension',
             'max 10 digits',
             'numeric',
+            'auto filled'
         ]
 
         counter = 0

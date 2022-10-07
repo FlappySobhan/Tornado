@@ -18,7 +18,10 @@ class Category(BaseModel):
         self.name = name
         self.parent = parent
         self.relation = relation
-        Category.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Category.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -35,7 +38,7 @@ class Category(BaseModel):
             'name 2~25 char',
             'parent 2~25 char',
             'empty or max 10 digits',
-            'numeric',
+            'auto filled'
         ]
 
         counter = 0

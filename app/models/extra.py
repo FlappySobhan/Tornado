@@ -14,14 +14,17 @@ class Extra(BaseModel):
     info = peewee.TextField()
     user = peewee.ForeignKeyField(Users, field="id")
 
-    def __init__(self, email: str, phone: str, address: str, info: str, user: int) -> None:
-        super().__init__()
+    def __init__(self, email: str, phone: str, address: str, info: str, user: int, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.email = email
         self.phone = phone
         self.address = address
         self.info = info
         self.user = user
-        Extra.validation(self.__dict__['__data__'])
+
+        # if we are in registering new data then validate the fields
+        if not kwargs.get('id'):
+            Extra.validation(self.__dict__['__data__'])
 
     @staticmethod
     def validation(data: dict) -> None:
@@ -32,7 +35,8 @@ class Extra(BaseModel):
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
             'info': r'.',
-            'user': r'^\d{1,10}$'
+            'user': r'^\d{1,10}$',
+            'id': r'^\d{1,}$'
         }
 
         messages = [
@@ -40,7 +44,8 @@ class Extra(BaseModel):
             'numeric, 10 primary digits',
             'max 250 char',
             'unlimited',
-            'max 10 digits'
+            'max 10 digits',
+            'auto filled'
         ]
 
         counter = 0

@@ -15,5 +15,6 @@ def database() -> PostgresqlDatabase:
 
 
 class BaseModel(Model):
+    """This is the base class that all models inherit from it"""
     class Meta:
         database = database()
