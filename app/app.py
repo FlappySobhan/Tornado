@@ -6,7 +6,7 @@ from core.router import Router
 from core.utils import create_tables, generate_data
 
 
-if bool(config('DEVELOPMENT', False)):
+if bool(config('IS_LOCAL', False)):
     # Create database tables
     create_tables()
 
