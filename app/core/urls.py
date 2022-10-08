@@ -19,6 +19,7 @@ routes = [
     Route("/contact_us/", endpoint=None, view_func=contact_us, methods=['GET', 'POST']),
     Route("/contact/", endpoint=None, view_func=contact, methods=['GET', 'POST']),
     Route("/signup/", endpoint=None, view_func=signup, methods=['GET', 'POST']),
+    Route("/login/", endpoint=None, view_func=signup, methods=['GET', 'POST']),
     # Handlers:
     Handler(404, not_found)
 ]

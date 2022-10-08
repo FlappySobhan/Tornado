@@ -108,7 +108,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container p-3">
-                        <form class="mb-4" action="javascript:void(0);" id="login" name="loginform">
+                        <form class="mb-4" action="javascript:void(0);" id="login" name="loginform" onsubmit="loginfunc();">
 
                             <div class="input-group mb-3">
                                 <div class="form-floating has-validation">
@@ -215,5 +215,56 @@
             });
         };
 
+    </script>
+    <script>
+        <!-- login       -->
+        function loginfunc() {
+             // event.preventDefault();
+            $.ajax({
+                url: 'http://127.0.0.1:5005/login',
+                type: 'POST',
+                data: {
+                    "phone": $('#phone').val(),
+                    "password": $('#Password').val()
+                },
+                // if success alert something from flask flash
+                success: function (data) {
+                    if (data['success'] === true) {
+                        swal.fire({
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: 'learn-more'
+                            },
+                            title: 'ورود با موفقیت انجام شد',
+                            confirmButtonText: 'باشه'
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload()
+                            }
+                        })
+
+                    } else {
+                        document.getElementById("signup").reset();
+                        swal.fire({
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: 'learn-more'
+
+
+                            },
+                            icon: 'warning',
+                            title: 'این کاربر وجود ندارد',
+                            text: data['err'],
+                            confirmButtonColor: '#fff0cf',
+                            confirmButtonText: 'باشه'
+
+                        })
+                    }
+                },
+                error: function () {
+                    alert("خطا در ارتباط")
+                }
+            });
+        };
     </script>
 {% endblock script %}

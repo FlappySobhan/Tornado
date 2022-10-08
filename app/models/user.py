@@ -2,13 +2,14 @@ import re
 import peewee
 from datetime import datetime
 from werkzeug.security import generate_password_hash
+from flask_login import UserMixin
 
 from models.base import BaseModel
 from models.rule import Rule
 from core.exceptions import StructureError
 
 
-class Users(BaseModel):
+class Users(BaseModel, UserMixin):
     id = peewee.AutoField()
     name = peewee.CharField()
     family = peewee.CharField()
