@@ -7,6 +7,7 @@ from views.order import delete_order
 from views.error import not_found
 from views.contact import contact, contact_us
 from views.signup import signup
+from views.login import login
 
 routes = [
     Route("/", endpoint=None, view_func=home),
@@ -19,7 +20,7 @@ routes = [
     Route("/contact_us/", endpoint=None, view_func=contact_us, methods=['GET', 'POST']),
     Route("/contact/", endpoint=None, view_func=contact, methods=['GET', 'POST']),
     Route("/signup/", endpoint=None, view_func=signup, methods=['GET', 'POST']),
-    Route("/login/", endpoint=None, view_func=signup, methods=['GET', 'POST']),
+    Route("/login/", endpoint=None, view_func=login, methods=['GET', 'POST']),
     # Handlers:
     Handler(404, not_found)
 ]

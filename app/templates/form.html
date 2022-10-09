@@ -108,11 +108,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="container p-3">
-                        <form class="mb-4" action="javascript:void(0);" id="login" name="loginform" onsubmit="loginfunc();">
+                        <form class="mb-4"  id="login" name="loginform">
 
                             <div class="input-group mb-3">
                                 <div class="form-floating has-validation">
-                                    <input id="phonelogin" type="text" class="form-control" required dir="ltr"
+                                    <input id="phoneLogin" type="text" class="form-control" required dir="ltr"
                                         placeholder="9123456789" onchange="validatephone(this)">
                                     <label for="phone">شماره‌موبایل</label>
                                     <div class="invalid-feedback">
@@ -131,16 +131,16 @@
                             </div>
                             <div class="col-sm">
                                 <div class="form-floating has-validation">
-                                    <input type="password" class="form-control" id="passwordLogin" required
+                                    <input id="ourPasswordLogin" type="password" class="form-control"  required
                                         onchange="validatepass(this)" placeholder="رمز">
-                                    <label for="Password">رمز</label>
+                                    <label for="ourPasswordLogin">رمز</label>
                                     <div class="invalid-feedback">
                                         رمز نمی‌تواند کمتر از ۸ کارکتر باشد!
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-between text-center mt-4">
-                                <div class="col-6 col-sm-4 mt-2"><button type="submit"
+                                <div id="loginSubmit" class="col-6 col-sm-4 mt-2"><button type="submit"
                                         class="btn btn btn-outline-success w-100">ورود</button>
                                 </div>
                                 <div class="col-6 col-sm-4 mt-2"><button type="reset"
@@ -218,16 +218,20 @@
     </script>
     <script>
         <!-- login       -->
-        function loginfunc() {
+
+        $("#loginSubmit").click(function() {
+
+            event.preventDefault();
+
+
              // event.preventDefault();
             $.ajax({
                 url: 'http://127.0.0.1:5005/login',
                 type: 'POST',
                 data: {
-                    "phone": $('#phone').val(),
-                    "password": $('#Password').val()
+                    "phone": $('#phoneLogin').val(),
+                    "login_password": $('#ourPasswordLogin').val()
                 },
-                // if success alert something from flask flash
                 success: function (data) {
                     if (data['success'] === true) {
                         swal.fire({
@@ -265,6 +269,7 @@
                     alert("خطا در ارتباط")
                 }
             });
-        };
+        });
+
     </script>
 {% endblock script %}
