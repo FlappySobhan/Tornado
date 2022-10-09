@@ -1,8 +1,7 @@
 from flask import request, jsonify, redirect, url_for
-from core.exceptions import StructureError
 from models.user import Users
-from flask_login import login_user, logout_user, login_required, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import login_user
+from werkzeug.security import check_password_hash
 
 
 def login():
@@ -23,7 +22,8 @@ def login():
                 login_user(user)
                 return jsonify({'success': True})
         except Exception:
-                return jsonify({'success': False, 'err': 'رمز عبور اشتباه است'})
+            return jsonify({'success': False, 'err': 'رمز عبور اشتباه است'})
         else:
             return jsonify({'success': False, 'err': 'رمز عبور اشتباه است'})
 
+    return redirect(url_for('home'))
