@@ -9,19 +9,21 @@ def login():
     """Login user"""
     if request.method == 'POST':
         try:
-            phone = request.form.get('phone')
-            print("================", str(phone), '================')
-            password = request.form.get('login_password')
-            print("================", str(password), '================')
-            try:
-                user = Users.get(Users.phone == phone)
-                print("================", str(password), '================')
-                print("================", str(user.password), '================')
-                user_password_hash = generate_password_hash(password, method="pbkdf2:sha256")
-                if user and check_password_hash(user.password, user_password_hash):
-                    login_user(user)
-                    return jsonify({'status': True, 'message': 'login successful'})
-            except Exception as e:
-                return jsonify({'status': False, 'message': 'login failed', 'err': str(e)})
+            phone = request.form['phone']
+            password = request.form['password']
+        except KeyError:
+            return jsonify({'error': 'Invalid data'})
+
+        try:
+            user = Users.get(Users.phone == phone)
+        except Users.DoesNotExist:
+            return jsonify({'success': False, 'err': 'کاربر یافت نشد'})
+        try:
+            if check_password_hash(user.password, password):
+                login_user(user)
+                return jsonify({'success': True})
         except Exception:
-            return jsonify({'status': False, 'err': 'phone or password is wrong'}), 401
+                return jsonify({'success': False, 'err': 'رمز عبور اشتباه است'})
+        else:
+            return jsonify({'success': False, 'err': 'رمز عبور اشتباه است'})
+

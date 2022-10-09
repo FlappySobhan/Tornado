@@ -230,7 +230,7 @@
                 type: 'POST',
                 data: {
                     "phone": $('#phoneLogin').val(),
-                    "login_password": $('#ourPasswordLogin').val()
+                    "password": $('#ourPasswordLogin').val()
                 },
                 success: function (data) {
                     if (data['success'] === true) {
@@ -257,7 +257,7 @@
 
                             },
                             icon: 'warning',
-                            title: 'این کاربر وجود ندارد',
+                            title: 'خطا در ورود',
                             text: data['err'],
                             confirmButtonColor: '#fff0cf',
                             confirmButtonText: 'باشه'

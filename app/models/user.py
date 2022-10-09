@@ -9,6 +9,10 @@ from models.rule import Rule
 from core.exceptions import StructureError
 
 
+
+
+
+
 class Users(BaseModel, UserMixin):
     id = peewee.AutoField()
     name = peewee.CharField()
