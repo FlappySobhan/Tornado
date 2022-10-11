@@ -10,9 +10,18 @@
 
     <div class="collapse navbar-collapse d-md-flex justify-content-lg-end ms-3" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-md-0 nav-bg">
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#Loginmodal">ورود <div class="vr"></div> ثبت‌نام</a>
+        <!--whith jinja check user login or not if user not login show:-->
+        {% if not current_user.is_authenticated %}
+        <li id="LoginRegister" class="nav-item">
+          <a  class="nav-link" data-bs-toggle="modal" data-bs-target="#Loginmodal">ورود <div class="vr"></div> ثبت‌نام</a>
         </li>
+        {% endif %}
+        <!--whith jinja check user login or not if user login show:-->
+        {% if current_user.is_authenticated %}
+        <li id="UserDashboardNav" class="nav-item">
+          <a  class="nav-link" href="/Dashboard">ناحیه کاربری | {{current_user.name}}</a>
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="/menu">منو</a>
         </li>

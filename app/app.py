@@ -16,6 +16,8 @@ if bool(config('IS_LOCAL', False)):
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('FLASK_SECRET_KEY')
+app.config['TESTING'] = False
+
 router = Router(app, routes)
 
 login_manager = LoginManager(app)
@@ -25,7 +27,8 @@ login_manager = LoginManager(app)
 def load_user(user_id):
     try:
         return Users.get(Users.id == user_id)
-    except Exception:
+    except Exception as e:
+        print(e)
         return None
 
 
