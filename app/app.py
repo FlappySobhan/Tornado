@@ -16,7 +16,6 @@ if bool(config('IS_LOCAL', False)):
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('FLASK_SECRET_KEY')
-app.config['TESTING'] = False
 
 router = Router(app, routes)
 
