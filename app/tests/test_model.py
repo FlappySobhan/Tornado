@@ -1,6 +1,7 @@
 import pytest
 from decouple import config
 from werkzeug.security import check_password_hash
+from flask_login import login_user
 
 from models.coupon import Coupon
 from models.rule import Rule

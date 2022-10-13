@@ -5,23 +5,14 @@ from werkzeug.security import check_password_hash
 
 
 def login():
-    """Login user"""
+    """Login user if exists and password is correct"""
     if request.method == 'POST':
-        try:
-            phone = request.form['phone']
-            password = request.form['password']
-        except KeyError:
-            return jsonify({'error': 'Invalid data'})
+        phone = request.form['phone']
+        password = request.form['password']
+        user = Users.select().where(Users.phone == phone).first()
 
-        try:
-            user = Users.get(Users.phone == phone)
-        except Users.DoesNotExist:
-            return jsonify({'success': False, 'err': 'کاربر یافت نشد'})
-        try:
-            if check_password_hash(user.password, password):
-                login_user(user)
-                return jsonify({'success': True})
-        except Exception:
-            return jsonify({'success': False, 'err': 'رمز عبور اشتباه است'})
-        else:
-            return jsonify({'success': False, 'err': 'رمز عبور اشتباه است'})
+        if check_password_hash(user.password, password):
+            login_user(user)
+            return jsonify({'success': True})
+
+        return jsonify({'success': False, 'err': 'اطلاعات وروردی صحیح نمی‌باشد'})
