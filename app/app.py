@@ -6,6 +6,8 @@ from core.urls import routes
 from core.router import Router
 from core.utils import create_tables, generate_data
 from models.user import Users
+from models.extra import Extra
+
 
 if bool(config('IS_LOCAL', False)):
     # Create database tables
@@ -23,7 +25,11 @@ login_manager = LoginManager(app)
 @login_manager.user_loader
 def load_user(user_id):
     try:
-        return Users.get(Users.id == user_id)
+        user = Users.get(Users.id == user_id)
+        extra = Extra.select().where(Extra.user_id == user.id).first()
+        if extra:
+            user.extra = extra
+        return user
     except Exception:
         return None
 
