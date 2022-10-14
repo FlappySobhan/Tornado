@@ -2,7 +2,7 @@ from flask import render_template, request
 from models.menu import Menu
 from flask_login import login_required
 
-@login_required
+
 def menu():
     if request.method == 'GET':
         menu = []

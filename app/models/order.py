@@ -12,7 +12,7 @@ from core.exceptions import StructureError
 
 class Order(BaseModel):
     id = peewee.AutoField()
-    register = peewee.DateTimeField(datetime.now())
+    register = peewee.DateTimeField(default=datetime.now())
     deliver = peewee.CharField()
     code = peewee.CharField()
     cost = peewee.DecimalField()
@@ -41,18 +41,20 @@ class Order(BaseModel):
         """Regex validator"""
 
         patterns = {
+            'register': r'.*',
             'deliver': r'^([0-5][0-9][0-9][0-9])-(([0][0-9])|[1][0-2])-(([0][0-9])|([1][0-9])|([2][0-9])|([3][0-1])) '
-                       r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$',
+                       r'([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$|^None$',
             'code': r'^\d{1,5}$',
             'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
             'user': r'^\d{1,10}$',
             'desk': r'^\d{1,10}$',
             'status': r'^\d{1,10}$',
-            'coupon': r'^\d{1,10}$',
+            'coupon': r'^\d{1,10}$|^None$',
             'id': r'^\d{1,}$'
         }
 
         messages = [
+            'auto filled',
             'yyyy-mm-dd hh:mm:ss',
             'numeric max 5 digits',
             'max 10 digits and 5 decimal places',

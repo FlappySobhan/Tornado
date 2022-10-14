@@ -23,7 +23,7 @@ routes = [
     Route("/signup/", endpoint=None, view_func=signup, methods=['GET', 'POST']),
     Route("/login/", endpoint=None, view_func=login, methods=['GET', 'POST']),
     Route("/dashboard/", endpoint=None, view_func=dashboard, methods=['GET', 'POST']),
-    Route("/dashboard/order_history", endpoint=None, view_func=order_history, methods=['GET', 'POST']),
+    Route("/order_history/", endpoint=None, view_func=order_history, methods=['GET', 'POST']),
     # Route("/dashboard/edit_user", endpoint=None, view_func=edit_user_show, methods=['GET', 'POST']),
     # Handlers:
     Handler(404, not_found)

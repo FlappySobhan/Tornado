@@ -34,7 +34,7 @@ class Extra(BaseModel):
             'email': r'^[\w|.|-]+@\w*\.[\w|.]*$',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
-            'info': r'.$',
+            'info': r'.*',
             'user': r'^\d{1,10}$',
             'id': r'^\d{1,}$'
         }
