@@ -22,17 +22,25 @@
             <ul class="sidebarRTL list-unstyled components mb-5" dir="rtl">
                 <li>
                     <!--when click class is active-->
-                    <a id="userEdit" class='active' href="/dashboard/"><span class="fa-solid fa-user-pen "></span> تغییر مشخصات </a>
+                    <a id="userEdit" class='active' href="/dashboard/"><span class="fa-solid fa-user-pen "></span> تغییر
+                        مشخصات </a>
 
                 </li>
                 <li>
                     <!--          set a jinja variable for understanding clas in active or not        -->
-                    <a id="orders" class="" href="/order_history/"><span class="fa-solid fa-bag-shopping mr-1"></span> لیست سفارشات </a>
+                    <a id="orders" class="" href="/order_history/"><span class="fa-solid fa-bag-shopping mr-1"></span>
+                        لیست سفارشات </a>
 
 
                 </li>
 
             </ul>
+            <div class="fixed-bottom mr-3 mb-3">
+                <p class="">
+                    <a href="/logout/" class="text-dark" style="font-size: large">خروج <i
+                            class="fa-solid fa-right-from-bracket"></i></a>
+                </p>
+            </div>
 
 
         </div>
@@ -220,7 +228,9 @@
 
                                                 }).then(function (isConfirm) {
                                                     if (isConfirm) {
-                                                        location.reload()}});
+                                                        location.reload()
+                                                    }
+                                                });
                                             }
                                         },
                                         error: function () {

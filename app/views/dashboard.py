@@ -4,6 +4,8 @@ from decouple import config
 
 from models.user import Users
 from models.extra import Extra
+from models.order import Order
+from models.status import Status
 from core.exceptions import StructureError
 
 
@@ -23,7 +25,8 @@ def edit_user():
                         'info': request.form['info'], 'user': current_user.id}
 
         try:
-            Users(**update_user, phone=current_user.phone, password=config('SECURITY_PASS_TEST'), balance=current_user.balance,
+            Users(**update_user, phone=current_user.phone, password=config('SECURITY_PASS_TEST'),
+                  balance=current_user.balance,
                   subscription=current_user.subscription, rule=current_user.rule)
             Extra(**update_extra)
         except StructureError as e:
@@ -45,4 +48,15 @@ def edit_user():
 @login_required
 def order_history():
     """Show order history"""
-    return render_template('order_history.html')
+    if request.method == 'GET':
+        orders = []
+        query = Order.select().where(Order.user == current_user.id)
+        counter = 1
+        for i in query:
+            order = i.__dict__['__data__']
+            order.update(count=counter)
+            orders.append(order)
+            counter += 1
+        orders = map(lambda x: {**x, 'status': Status.select().where(Status.id == x['status']).first().status}, orders)
+
+        return render_template('order_history.html', result=orders)

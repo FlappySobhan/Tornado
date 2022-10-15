@@ -23,7 +23,8 @@
             <ul class="sidebarRTL list-unstyled components mb-5" dir="rtl">
                 <li>
                     <!--when click class is active-->
-                    <a id="userEdit" class='' href="/dashboard/"><span class="fa-solid fa-user-pen"></span> تغییر مشخصات </a>
+                    <a id="userEdit" class='' href="/dashboard/"><span class="fa-solid fa-user-pen"></span> تغییر مشخصات
+                    </a>
 
                 </li>
                 <li>
@@ -34,7 +35,13 @@
                 </li>
 
             </ul>
-
+<!--            logout-->
+            <div class="fixed-bottom mr-3 mb-3">
+                <p class="">
+                    <a href="/logout/" class="text-dark" style="font-size: large">خروج <i
+                            class="fa-solid fa-right-from-bracket"></i></a>
+                </p>
+            </div>
 
         </div>
 
@@ -44,20 +51,48 @@
     <div id="content" class="p-4 p-md-5 pt-5 text-right" dir="rtl">
 
         <div class="container-fluid">
-        </div>
-    </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>سابقه سفارشات</h3>
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">شماره سفارش</th>
+                            <th scope="col">زمان ثبت سفارش</th>
+                            <th scope="col">زمان تحویل سفارش</th>
+                            <th scope="col">مبلغ کل</th>
+                            <th scope="col">وضعیت سفارش</th>
 
 
-    {% endblock content %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in result %}
+                        <tr>
+                            <th scope="row">{{ i.count }}</th>
+                            <td>{{ i.register }}</td>
+                            <td>{{ i.deliver }}</td>
+                            <td>{{ i.cost }}</td>
+                            <td>{{ i.status }}</td>
+                        </tr>
+                        {% endfor %}
 
-    {% block script %}
+                        </tbody>
+                    </table>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../static/js/popper.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/main.js"></script>
+                </div>
+            </div>
 
 
-    {% endblock script %}
+            {% endblock content %}
 
+            {% block script %}
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="../static/js/popper.js"></script>
+            <script src="../static/js/bootstrap.min.js"></script>
+            <script src="../static/js/main.js"></script>
+
+
+            {% endblock script %}
 

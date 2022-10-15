@@ -8,7 +8,7 @@ from views.error import not_found
 from views.contact import contact, contact_us
 from views.signup import signup
 from views.login import login
-from views.dashboard import dashboard, order_history
+from views.dashboard import dashboard, order_history, logout
 
 routes = [
     Route("/", endpoint=None, view_func=home),
@@ -24,6 +24,7 @@ routes = [
     Route("/login/", endpoint=None, view_func=login, methods=['GET', 'POST']),
     Route("/dashboard/", endpoint=None, view_func=dashboard, methods=['GET', 'POST']),
     Route("/order_history/", endpoint=None, view_func=order_history, methods=['GET', 'POST']),
+    Route("/logout/", endpoint=None, view_func=order_history, methods=['GET', 'POST']),
     # Route("/dashboard/edit_user", endpoint=None, view_func=edit_user_show, methods=['GET', 'POST']),
     # Handlers:
     Handler(404, not_found)
