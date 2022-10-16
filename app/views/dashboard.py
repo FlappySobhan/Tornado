@@ -1,6 +1,8 @@
 from flask import render_template, request, jsonify, redirect, url_for
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, logout_user
 from decouple import config
+from re import match
+from werkzeug.security import check_password_hash
 
 from models.user import Users
 from models.extra import Extra
@@ -60,3 +62,31 @@ def order_history():
         orders = map(lambda x: {**x, 'status': Status.select().where(Status.id == x['status']).first().status}, orders)
 
         return render_template('order_history.html', result=orders)
+
+
+@login_required
+def logout():
+    """Logout"""
+    logout_user()
+    return redirect(url_for('home'))
+
+
+@login_required
+def change_password():
+    """Change password"""
+    if request.method == 'POST':
+        old_pass = request.form['old_pass']
+        new_pass = request.form['new_pass']
+        password_pattern = Users.patterns['password']
+        if check_password_hash(current_user.password, old_pass):
+            if match(password_pattern, new_pass):
+                Users.update({Users.password: new_pass}).where(Users.id == current_user.id).execute()
+                return jsonify({'success': True, 'err': 'رمز عبور با موفقیت تغییر کرد'})
+            else:
+                return jsonify({'success': False, 'err': 'رمز عبور باید حداقل ۸ کاراکتر باشد'})
+        else:
+            return jsonify({'success': False, 'err': 'رمز عبور فعلی صحیح نمی‌باشد'})
+
+    return render_template('change_password.html')
+
+
