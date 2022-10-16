@@ -6,7 +6,6 @@ from werkzeug.security import check_password_hash
 from models.user import Users
 from models.extra import Extra
 from models.order import Order
-from models.status import Status
 from core.exceptions import StructureError
 
 
