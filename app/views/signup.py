@@ -19,7 +19,9 @@ def signup():
 
         # create new user if data is valid
         try:
-            user = Users(firstname, lastname, phone, address, password, 0, 0, 1)
+            subs = Users.select().order_by(Users.id.desc()).first()
+            subs = subs.id + 100 if subs else 100
+            user = Users(firstname, lastname, phone, address, password, 0, subs, 1)
         except StructureError as e:
             return jsonify({'success': False, 'err': str(e)})
         else:

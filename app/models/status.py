@@ -22,7 +22,7 @@ class Status(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'status': r'^(cooking|canceled|delivered|waiting)$',
+            'status': r'^(در حال آماده‌سازی|لغو شده|تحویل داده شده|در صف انتظار)$',
             'id': r'^\d{1,}$'
         }
 

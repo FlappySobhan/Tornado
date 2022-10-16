@@ -1,41 +1,54 @@
 <nav id="top-nav" class="navbar navbar-expand-md sticky-top border-bottom nav-bg">
-  <div class="container-fluid  container-md  pb-1">
-    <a class="navbar-brand" href="/">کافه تورنادو</a>
+    <div class="container-fluid  container-md  pb-1">
+        <a class="navbar-brand" href="/">کافه تورنادو</a>
 
-    <a class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </a>
-    <button class="learn-more mb-3 ms-3">ثبت سفارش</button>
-
-    <div class="collapse navbar-collapse d-md-flex justify-content-lg-end ms-3" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-2 mb-md-0 nav-bg">
-        <!--whith jinja check user login or not if user not login show:-->
-        {% if not current_user.is_authenticated %}
-        <li id="LoginRegister" class="nav-item">
-          <a  class="nav-link" data-bs-toggle="modal" data-bs-target="#Loginmodal">ورود <div class="vr"></div> ثبت‌نام</a>
-        </li>
-        {% endif %}
-        <!--whith jinja check user login or not if user login show:-->
+        <a class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+           data-bs-target="#navbarSupportedContent"
+           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </a>
+        <button class="learn-more mb-3 ms-3">ثبت سفارش</button>
         {% if current_user.is_authenticated %}
-        <li id="UserDashboardNav" class="nav-item">
-          <a  class="nav-link" href="/dashboard">ناحیه کاربری | {{current_user.name}}</a>
-        </li>
+<!--            <div class="collapse navbar-collapse d-md-flex justify-content-lg-end ms-3" id="navbarSupportedContent">-->
+            <ul class="navbar-nav mr-5 mb-2 mb-md-0 nav-bg">
+                <li class="nav-item">
+                    <a class="nav-link">کد اشتراک: {{current_user.subscription}}</a>
+                </li>
+
+            </ul>
+<!--            </div>-->
         {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="/menu">منو</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/contact_us">تماس با ما</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">درباره‌ی ما</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">سفارشات جاری</a>
-        </li>
-      </ul>
+
+        <div class="collapse navbar-collapse d-md-flex justify-content-lg-end ms-3" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-md-0 nav-bg">
+                <!--whith jinja check user login or not if user not login show:-->
+                {% if not current_user.is_authenticated %}
+                <li id="LoginRegister" class="nav-item">
+                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#Loginmodal">ورود
+                        <div class="vr"></div>
+                        ثبت‌نام</a>
+                </li>
+                {% endif %}
+                <!--whith jinja check user login or not if user login show:-->
+                {% if current_user.is_authenticated %}
+                <li id="UserDashboardNav" class="nav-item">
+                    <a class="nav-link" href="/dashboard">ناحیه کاربری | {{current_user.name}}</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/menu">منو</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">تماس با ما</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">درباره‌ی ما</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">سفارشات جاری</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 {% include "form.html" %}

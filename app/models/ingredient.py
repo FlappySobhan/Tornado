@@ -11,7 +11,7 @@ class Ingredient(BaseModel):
     unit = peewee.CharField()
     cost = peewee.DecimalField()
 
-    def __init__(self, name: str,  unit: str, cost: int | float, *args, **kwargs) -> None:
+    def __init__(self, name: str, unit: str, cost: int | float, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.name = name
         self.unit = unit
@@ -26,7 +26,8 @@ class Ingredient(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,30}$',
+            'name': r'((^[\u0600-\u06F0]{2,30}$)|(^[\u0600-\u06F0]{2,15}[ ][\u0600-\u06F0]{2,15}$))|((^[A-Za-z]{2,'
+                    r'30}$)|(^[A-Za-z]{2,15}[ ][A-Za-z]{2,15}$))',
             'unit': r'^.{1,40}$',
             'cost': r'(^\d{1,10}\.\d{1,5}$)|(^\d{1,10}$)',
             'id': r'^\d{1,}$'

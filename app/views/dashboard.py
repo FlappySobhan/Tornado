@@ -11,11 +11,6 @@ from core.exceptions import StructureError
 
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
-
-
-@login_required
-def edit_user():
     """Edit user info"""
     if request.method == 'POST':
         update_user = {'name': request.form['name'], 'family': request.form['family'],
@@ -42,7 +37,7 @@ def edit_user():
                 Extra.create(**update_extra)
             return jsonify({'success': True, 'err': "اطلاعات با موفقیت ثبت شد"})
 
-    return redirect(url_for('dashboard'))
+    return render_template('dashboard.html')
 
 
 @login_required

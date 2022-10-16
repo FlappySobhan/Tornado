@@ -45,8 +45,10 @@ class Users(BaseModel, UserMixin):
 
         patterns = {
             'created_at': r'.*',
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
-            'family': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
+            'name': r'((^[\u0600-\u06F0]{2,30}$)|(^[\u0600-\u06F0]{2,15}[ ][\u0600-\u06F0]{2,15}$))|((^[A-Za-z]{2,'
+                    r'30}$)|(^[A-Za-z]{2,15}[ ][A-Za-z]{2,15}$))',
+            'family': r'((^[\u0600-\u06F0]{2,30}$)|(^[\u0600-\u06F0]{2,15}[ ][\u0600-\u06F0]{2,15}$))|((^[A-Za-z]{2,'
+                    r'30}$)|(^[A-Za-z]{2,15}[ ][A-Za-z]{2,15}$))',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
             'password': r'^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,40}$',
@@ -58,8 +60,8 @@ class Users(BaseModel, UserMixin):
 
         messages = [
             'auto filled',
-            'alphabetic 2~25 char',
-            'alphabetic 2~25 char',
+            'alphabetic 2~30 char',
+            'alphabetic 2~30 char',
             'numeric, 10 primary digits',
             'max 250 char',
             'complex with 8~40 char',

@@ -30,9 +30,9 @@ class GenerateData:
 
     def __init__(self):
         self.generate_category()
-        self.generate_menu()
         self.generate_rule()
         self.generate_user()
+        self.generate_menu()
         self.generate_desk()
         self.generate_status()
         self.generate_coupon()
@@ -63,7 +63,7 @@ class GenerateData:
         try:
             r = Rule.select().get()
         except Exception:
-            for item in ['customer', 'employee', 'admin']:
+            for item in ['مشتری', 'کارمند', 'ادمین']:
                 r = Rule(item)
                 r.save()
 
@@ -73,8 +73,10 @@ class GenerateData:
             user = Users.select().get()
         except Exception:
             for i in range(1, 5):
-                user = Users('jeff', 'bobs', '09123536842',
-                             'iran-mashhad', config('SECURITY_PASS_TEST'), i, i, "customer")
+                subs = Users.select().order_by(Users.id.desc()).first()
+                subs = subs.id + 100 if subs else 100
+                user = Users('jeff', 'bobs', f'091235{i}6842',
+                             'iran-mashhad', config('SECURITY_PASS_TEST'), 12345, subs, 1)
                 user.save()
 
     @staticmethod
@@ -83,7 +85,7 @@ class GenerateData:
             desk = Desk.select().get()
         except Exception:
             for i in range(1, 5):
-                desk = Desk('strong', i, 2, 'free', 100)
+                desk = Desk('strong', i, i, 'free', 100)
                 desk.save()
 
     @staticmethod
@@ -91,7 +93,7 @@ class GenerateData:
         try:
             status = Status.select().get()
         except Exception:
-            for item in ['cooking', 'canceled', 'delivered', 'waiting']:
+            for item in ['در حال آماده‌سازی', 'لغو شده', 'تحویل داده شده', 'در صف انتظار']:
                 status = Status(item)
                 status.save()
 
@@ -110,5 +112,5 @@ class GenerateData:
             order = Order.select().get()
         except Exception:
             for i in range(1, 5):
-                order = Order('2002-10-10 14:23:16', '12345', 1000, i, i, i, i)
+                order = Order('2002-10-10 14:23:16', '12345', 1000, 1, i, i, i)
                 order.save()

@@ -30,7 +30,8 @@ class Desk(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
+            'name': r'((^[\u0600-\u06F0]{2,30}$)|(^[\u0600-\u06F0]{2,15}[ ][\u0600-\u06F0]{2,15}$))|((^[A-Za-z]{2,'
+                    r'30}$)|(^[A-Za-z]{2,15}[ ][A-Za-z]{2,15}$))',
             'number': r'^\d{1,3}$',
             'capacity': r'^\d{1,2}$',
             'status': r'^.{1,250}$',
@@ -39,7 +40,7 @@ class Desk(BaseModel):
         }
 
         messages = [
-            'name 2~25 char',
+            'name 2~30 char',
             'numeric max 3 digits',
             'numeric max 2 digits',
             'max 250 char',

@@ -87,9 +87,9 @@
                                 </div>
                                 <div class="row mx-1 my-1">
                                     <div class="col-6">
-                                        <label class="form-label mt-1">کد اشتراک</label>
+                                        <label class="form-label mt-1">نام کاربری</label>
                                         <input type="text" class="form-control border" id="subsCode" name="nameUser"
-                                               value={{current_user.subscription}} readonly>
+                                               value={{current_user.phone}} readonly>
                                     </div>
                                     <div class="col-6">
                                         <label class="form-label mt-1">تاریخ ثبت‌نام</label>
@@ -186,7 +186,7 @@
                                     let info = $("#infoUser").val();
 
                                     $.ajax({
-                                        url: "/edit_user",
+                                        url: "/dashboard",
                                         type: "POST",
                                         data: {
                                             "name": name,
