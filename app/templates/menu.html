@@ -20,24 +20,24 @@
   <div class="container-md text-center" style="font-family: IRKharazmi;">
     <h1 class="m-4 p-4 d-inline-block bg-mycolor-light rounded-pill">منوی کافه</h1>
 
-    <div class="nav nav-tabs nav-fill nav-justified" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs nav-fill nav-justified" id="nav-tab">
       <button class="nav-link active" id="nav-cafe-base-tab" data-bs-toggle="tab" data-bs-target="#nav-cafe-base" type="button"
         role="tab" aria-controls="nav-cafe-base" aria-selected="true">بر پایه‌ی قهوه</button>
       <button class="nav-link" id="nav-shake-tab" data-bs-toggle="tab" data-bs-target="#nav-shake" type="button"
         role="tab" aria-controls="nav-shake" aria-selected="false">شیک‌ها</button>
       <button class="nav-link" id="nav-hot-tab" data-bs-toggle="tab" data-bs-target="#nav-hot" type="button"
         role="tab" aria-controls="nav-hot" aria-selected="false">دمنوش‌ها</button>
-        <button class="nav-link" id="nav-food-tab" data-bs-toggle="tab" data-bs-target="#nav-food" type="button"
+      <button class="nav-link" id="nav-food-tab" data-bs-toggle="tab" data-bs-target="#nav-food" type="button"
         role="tab" aria-controls="nav-food" aria-selected="false">خوردنی‌ها</button>
     </div>
-    <div class="bg-mycolor-light shadow vh-100">
+    <div class="bg-mycolor-light shadow p-2 pb-4 mb-5">
       <div class="tab-content" id="nav-tabContent">
 
         <div class="tab-pane fade show active" id="nav-cafe-base" role="tabpanel" aria-labelledby="nav-cafe-base-tab" tabindex="0">
-          <div class="row pt-3 m-0 g-2">
+          <div class="row pt-3 m-0 g-3">
             {% for item in result %}
               {% if item.category_id == 4 %}
-                <div class="flip-card col-sm-4">
+                <div class="flip-card col-auto">
                   <div class="flip-card-inner">
                     <div class="flip-card-front">
                       <img src="{{ item.picture }}" class="card-img-top" style="border-radius: 5px;">
@@ -58,10 +58,10 @@
         </div>
 
         <div class="tab-pane fade" id="nav-shake" role="tabpanel" aria-labelledby="nav-shake-tab" tabindex="0">
-          <div class="row pt-3 m-0 g-2">
+          <div class="row pt-3 m-0 g-3">
             {% for item in result %}
               {% if item.category_id == 4 %}
-                <div class="flip-card col-sm-4">
+                <div class="flip-card col-auto">
                   <div class="flip-card-inner">
                     <div class="flip-card-front">
                       <img src="{{ item.picture }}" class="card-img-top" style="border-radius: 5px;">
@@ -82,10 +82,10 @@
         </div>
 
         <div class="tab-pane fade" id="nav-hot" role="tabpanel" aria-labelledby="nav-hot-tab" tabindex="0">
-          <div class="row pt-3 m-0 g-2">
+          <div class="row pt-3 m-0 g-3">
             {% for item in result %}
               {% if item.category_id == 4 %}
-                <div class="flip-card col-sm-4">
+                <div class="flip-card col-auto">
                   <div class="flip-card-inner">
                     <div class="flip-card-front">
                       <img src="{{ item.picture }}" class="card-img-top" style="border-radius: 5px;">
@@ -105,11 +105,11 @@
           </div>
         </div>
 
-        <div class="tab-pane fade" id="nav-food" role="tabpanel" aria-labelledby="nav-hot-tab" tabindex="0">
-          <div class="row pt-3 m-0 g-2">
+        <div class="tab-pane fade" id="nav-food" role="tabpanel" aria-labelledby="nav-food-tab" tabindex="0">
+          <div class="row pt-3 m-0 g-3">
             {% for item in result %}
               {% if item.category_id == 4 %}
-                <div class="flip-card col-sm-4">
+                <div class="flip-card col-auto">
                   <div class="flip-card-inner">
                     <div class="flip-card-front">
                       <img src="{{ item.picture }}" class="card-img-top" style="border-radius: 5px;">
@@ -128,7 +128,6 @@
             {% endfor %}
           </div>
         </div>
-
       </div>
     </div>
 
