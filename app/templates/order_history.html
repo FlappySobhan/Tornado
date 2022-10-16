@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}سابقه سفارشات{% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="../static/css/dashboard.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../static/css/sidebar.css">
+<script src="https://kit.fontawesome.com/ce49529736.js" crossorigin="anonymous"></script>
+
+{% endblock style %}
+<!-- Image Slider -->
+{% block content %}
+
+
+<div class="wrapper d-flex align-items-stretch" dir="ltr">
+
+    <nav id="sidebar" class="order-last">
+        <div class="custom-menu ">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary toggleButtonColor">
+            </button>
+        </div>
+        <div class="sidebarRTL mb-0 text-right">
+            <ul class="sidebarRTL list-unstyled components mb-5" dir="rtl">
+                <li>
+                    <a id="userEdit" class='' href="/dashboard/"><span class="fa-solid fa-user-pen"></span> تغییر مشخصات
+                    </a>
+
+                </li>
+                <li>
+                    <a id="orders" class="active" href="/order_history/"><span
+                            class="fa-solid fa-bag-shopping mr-1"></span> لیست سفارشات </a>
+
+
+                </li>
+                <li>
+                    <a id="changePass" class="" href="/change_password/"><span class="fa-solid fa-lock mr-1"></span>
+                        تغییر رمزعبور </a>
+
+
+                </li>
+                <div class="mb-0 mr-3 mb-3 position-absolute" style="bottom: 10%">
+                    <p class="">
+                        <a href="/logout/" class="text-dark" style="font-size: large">خروج <i
+                                class="fa-solid fa-right-from-bracket"></i></a>
+
+                    </p>
+                </div>
+            </ul>
+            <!--            logout-->
+
+
+        </div>
+
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5 text-right" dir="rtl">
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3>سابقه سفارشات</h3>
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">شماره سفارش</th>
+                            <th scope="col">زمان ثبت سفارش</th>
+                            <th scope="col">زمان تحویل سفارش</th>
+                            <th scope="col">مبلغ کل</th>
+                            <th scope="col">وضعیت سفارش</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set counter = namespace(value=1) %}
+                        {% for i in result %}
+                        <tr>
+                            <th scope="row">{{ counter.value }}</th>
+                            <td>{{ i.register }}</td>
+                            <td>{{ i.deliver }}</td>
+                            <td>{{ i.cost }}</td>
+                            <td>{{ i.status.status }}</td>
+                        </tr>
+                        {% set counter.value = counter.value + 1 %}
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+            {% endblock content %}
+
+            {% block script %}
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+            <script src="../static/js/main.js"></script>
+
+
+            {% endblock script %}
+

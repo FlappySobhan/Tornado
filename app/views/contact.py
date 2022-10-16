@@ -1,9 +1,5 @@
-from flask import render_template, request, jsonify, redirect, url_for
+from flask import render_template, request, jsonify
 from models.contact import Contact
-
-
-def contact_us():
-    return render_template("contact.html")
 
 
 def contact():
@@ -21,4 +17,4 @@ def contact():
             message.save()
             return jsonify({'success': True})
 
-    return redirect(url_for('contact_us'))
+    return render_template("contact.html")

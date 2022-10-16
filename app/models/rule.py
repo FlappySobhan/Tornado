@@ -22,7 +22,7 @@ class Rule(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'rule': r'^(customer|employee|admin)$',
+            'rule': r'^(مشتری|کارمند|ادمین)$',
             'id': r'^\d{1,}$'
         }
 

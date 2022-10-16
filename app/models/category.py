@@ -28,15 +28,17 @@ class Category(BaseModel):
         """Regex validator"""
 
         patterns = {
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
-            'parent': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
+            'name': r'((^[\u0600-\u06F0]{2,30}$)|(^[\u0600-\u06F0]{2,15}[ ][\u0600-\u06F0]{2,15}$))|((^[A-Za-z]{2,'
+                    r'30}$)|(^[A-Za-z]{2,15}[ ][A-Za-z]{2,15}$))',
+            'parent': r'((^[\u0600-\u06F0]{2,30}$)|(^[\u0600-\u06F0]{2,15}[ ][\u0600-\u06F0]{2,15}$))|((^[A-Za-z]{2,'
+                      r'30}$)|(^[A-Za-z]{2,15}[ ][A-Za-z]{2,15}$))',
             'relation': r'^\d{1,10}|None$',
             'id': r'^\d{1,}$'
         }
 
         messages = [
-            'name 2~25 char',
-            'parent 2~25 char',
+            'name 2~30 char',
+            'parent 2~30 char',
             'empty or max 10 digits',
             'auto filled'
         ]

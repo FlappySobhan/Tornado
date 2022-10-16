@@ -8,10 +8,10 @@ from core.exceptions import StructureError
 
 class Extra(BaseModel):
     id = peewee.AutoField()
-    email = peewee.CharField()
-    phone = peewee.CharField()
-    address = peewee.CharField()
-    info = peewee.TextField()
+    email = peewee.CharField(null=True)
+    phone = peewee.CharField(null=True)
+    address = peewee.CharField(null=True)
+    info = peewee.TextField(null=True)
     user = peewee.ForeignKeyField(Users, field="id")
 
     def __init__(self, email: str, phone: str, address: str, info: str, user: int, *args, **kwargs) -> None:
@@ -34,7 +34,7 @@ class Extra(BaseModel):
             'email': r'^[\w|.|-]+@\w*\.[\w|.]*$',
             'phone': r'^(0|\+98)?[1-9]+[\d]{9}$',
             'address': r'^.{1,250}$',
-            'info': r'.',
+            'info': r'.*',
             'user': r'^\d{1,10}$',
             'id': r'^\d{1,}$'
         }
@@ -50,6 +50,6 @@ class Extra(BaseModel):
 
         counter = 0
         for key, value in data.items():
-            if not re.match(patterns[key], str(value)):
+            if value and not re.match(patterns[key], str(value)):
                 raise StructureError(key, messages[counter])
             counter += 1

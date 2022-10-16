@@ -42,3 +42,4 @@ peewee==3.15.2
 python-decouple==3.6
 Werkzeug==2.2.2
 Flask==2.2.2
+Flask-Login==0.6.2

@@ -32,7 +32,8 @@ class Contact(BaseModel):
 
         patterns = {
             'created_at': r'.',
-            'name': r'^([a-zA-Z]+[a-zA-Z\- ]*[a-zA-Z]+){1,25}$',
+            'name': r'((^[\u0600-\u06F0]{2,30}$)|(^[\u0600-\u06F0]{2,15}[ ][\u0600-\u06F0]{2,15}$))|((^[A-Za-z]{2,'
+                    r'30}$)|(^[A-Za-z]{2,15}[ ][A-Za-z]{2,15}$))',
             'email': r'^[\w|.|-]+@\w*\.[\w|.]*$',
             'message': r'.',
             'user': r'^\d{1,10}|None$',
@@ -41,7 +42,7 @@ class Contact(BaseModel):
 
         messages = [
             'auto fill',
-            'alphabetic 2~25 char',
+            'alphabetic 2~30 char',
             'standard email format',
             'should be not empty',
             'empty or max 10 digits',

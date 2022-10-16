@@ -34,6 +34,7 @@ class TestCouponModel:
                                  ('10x356', ''),
                                  ('10x356', 'abc'),
                                  ('10x356', 1234567985210),
+
                              ]
                              )
     def test_coupon_raise(self, code, amount):
@@ -46,8 +47,8 @@ class TestCouponModel:
 class TestRuleModel:
 
     def test_rule_success(self):
-        self.p1 = Rule('customer')
-        assert self.p1.rule == 'customer'
+        self.p1 = Rule('ادمین')
+        assert self.p1.rule == 'ادمین'
 
     @pytest.mark.parametrize('rule',
                              [
@@ -55,8 +56,8 @@ class TestRuleModel:
                                  (1),
                                  ('abc'),
                                  ('user'),
-                                 (' employee'),
-                                 ('employee '),
+                                 (' کارمند'),
+                                 ('ادمین '),
                                  ('employee_id')
                              ]
                              )
@@ -70,8 +71,8 @@ class TestRuleModel:
 class TestStatusModel:
 
     def test_status_success(self):
-        self.p1 = Status('cooking')
-        assert self.p1.status == 'cooking'
+        self.p1 = Status('در حال آماده‌سازی')
+        assert self.p1.status == 'در حال آماده‌سازی'
 
     @pytest.mark.parametrize('status',
                              [
@@ -81,7 +82,8 @@ class TestStatusModel:
                                  ('user'),
                                  (' cooking'),
                                  ('cooking '),
-                                 ('cooking_id')
+                                 ('cooking_id'),
+                                 ('در حال آماده ‌سازی')
                              ]
                              )
     def test_status_raise(self, status):
@@ -109,37 +111,37 @@ class TestUserModel:
                                  ('', 'yaghoubi', '09123536842',
                                   'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('a', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('12345', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('jeff', '', '09123536842',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('jeff', 'a', '09123536842',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('jeff', '12345', '09123536842',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('jeff', 'yaghoubi', 'bad',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '12345',
-                                     'iran-mashhad', '123!qwerQW', 0, 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     '', '123!qwerQW', 0, 100, 1),
+                                  '', '123!qwerQW', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', '', 0, 100, 1),
+                                  'iran-mashhad', '', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', '123', 0, 100, 1),
+                                  'iran-mashhad', '123', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', 'abc', 0, 100, 1),
+                                  'iran-mashhad', 'abc', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', '!@#$', 0, 100, 1),
+                                  'iran-mashhad', '!@#$', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', 'abcdefgh', 0, 100, 1),
+                                  'iran-mashhad', 'abcdefgh', 0, 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', '123!qwerQW', 'bad', 100, 1),
+                                  'iran-mashhad', '123!qwerQW', 'bad', 100, 1),
                                  ('jeff', 'yaghoubi', '09123536842',
-                                     'iran-mashhad', '123!qwerQW', 0, 'bad', 1)
+                                  'iran-mashhad', '123!qwerQW', 0, 'bad', 1)
                              ]
                              )
     def test_user_raise(self, name, family, phone, address, password, balance, subscription, rule):
@@ -170,7 +172,7 @@ class TestExtraModel:
                                   'address', 'nothing', 1),
                                  ('.com', '09123536842', 'address', 'nothing', 1),
                                  ('example@.com@.com', '09123536842',
-                                     'address', 'nothing', 1),
+                                  'address', 'nothing', 1),
                                  ('.com', '123', 'address', 'nothing', 1),
                                  ('.com', 'abc', 'address', 'nothing', 1),
                                  ('.com', '09123536842', '', 'nothing', 1)
@@ -269,15 +271,15 @@ class TestMenuModel:
 class TestIngredientModel:
 
     def test_ingredient_success(self):
-        self.p1 = Ingredient('milk', 'kilo',  10_000)
+        self.p1 = Ingredient('milk', 'kilo', 10_000)
         assert self.p1.name == 'milk'
         assert self.p1.unit == 'kilo'
         assert self.p1.cost == 10_000
 
     @pytest.mark.parametrize('name, unit, cost',
                              [
-                                 ('', 'kilo',  10_000),
-                                 (124, 'kilo',  10_000),
+                                 ('', 'kilo', 10_000),
+                                 (124, 'kilo', 10_000),
                                  ('a', 'kilo', 10_000),
                                  ('milk', '', 10_000),
                                  ('milk', 'kilo', ''),
