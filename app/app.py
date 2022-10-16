@@ -4,7 +4,7 @@ from flask_login import LoginManager
 
 from core.urls import routes
 from core.router import Router
-from core.utils import create_tables, generate_data
+from core.utils import create_tables, GenerateData
 from models.user import Users
 from models.extra import Extra
 
@@ -14,7 +14,7 @@ if bool(config('IS_LOCAL', False)):
     create_tables()
 
     # Generate fake data
-    generate_data()
+    GenerateData()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('FLASK_SECRET_KEY')
