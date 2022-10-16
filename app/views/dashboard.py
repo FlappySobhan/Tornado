@@ -50,12 +50,8 @@ def edit_user():
 def order_history():
     """Show order history"""
     if request.method == 'GET':
-        orders = []
         query = Order.select().where(Order.user == current_user.id)
-        for i in query:
-            orders.append(i)
-        map(lambda x: setattr(x, 'status', Status.select().where(Status.id == x.status).first().status),
-            orders)
+        orders = [order for order in query]
 
         return render_template('order_history.html', result=orders)
 
