@@ -1,7 +1,6 @@
 from flask import render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user, logout_user
 from decouple import config
-from re import match
 from werkzeug.security import check_password_hash
 
 from models.user import Users
@@ -53,13 +52,10 @@ def order_history():
     if request.method == 'GET':
         orders = []
         query = Order.select().where(Order.user == current_user.id)
-        counter = 1
         for i in query:
-            order = i.__dict__['__data__']
-            order.update(count=counter)
-            orders.append(order)
-            counter += 1
-        orders = map(lambda x: {**x, 'status': Status.select().where(Status.id == x['status']).first().status}, orders)
+            orders.append(i)
+        map(lambda x: setattr(x, 'status', Status.select().where(Status.id == x.status).first().status),
+            orders)
 
         return render_template('order_history.html', result=orders)
 
@@ -82,9 +78,9 @@ def change_password():
             try:
                 user = Users('jeff', 'bobs', '09123536842',
                              'iran-mashhad', new_pass, 12345, 12345, 2)
-            except StructureError as e:
+            except StructureError:
                 return jsonify({'success': False,
-                                'err': f'رمز عبور باید حداقل ۸ کاراکتر و شامل حروف خاص، بزرگ و کوچک و اعداد باشد.'})
+                                'err': 'رمز عبور باید حداقل ۸ کاراکتر و شامل حروف خاص، بزرگ و کوچک و اعداد باشد.'})
             else:
                 Users.update({Users.password: user.password}).where(Users.id == current_user.id).execute()
                 return jsonify({'success': True, 'err': 'رمز عبور با موفقیت تغییر یافت'})

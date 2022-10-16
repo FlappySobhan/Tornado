@@ -1,6 +1,5 @@
 from flask import render_template, request
 from models.menu import Menu
-from flask_login import login_required
 
 
 def menu():

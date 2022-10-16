@@ -72,14 +72,16 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {% set counter = namespace(value=1) %}
                         {% for i in result %}
                         <tr>
-                            <th scope="row">{{ i.count }}</th>
+                            <th scope="row">{{ counter.value }}</th>
                             <td>{{ i.register }}</td>
                             <td>{{ i.deliver }}</td>
                             <td>{{ i.cost }}</td>
-                            <td>{{ i.status }}</td>
+                            <td>{{ i.status.status }}</td>
                         </tr>
+                        {% set counter.value = counter.value + 1 %}
                         {% endfor %}
 
                         </tbody>
