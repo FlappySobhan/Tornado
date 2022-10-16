@@ -75,18 +75,20 @@ def logout():
 def change_password():
     """Change password"""
     if request.method == 'POST':
-        old_pass = request.form['old_pass']
-        new_pass = request.form['new_pass']
-        password_pattern = Users.patterns['password']
+        old_pass = request.form['oldPassword']
+        new_pass = request.form['newPassword']
+        print(old_pass, new_pass)
         if check_password_hash(current_user.password, old_pass):
-            if match(password_pattern, new_pass):
-                Users.update({Users.password: new_pass}).where(Users.id == current_user.id).execute()
-                return jsonify({'success': True, 'err': 'رمز عبور با موفقیت تغییر کرد'})
+            try:
+                user = Users('jeff', 'bobs', '09123536842',
+                             'iran-mashhad', new_pass, 12345, 12345, 2)
+            except StructureError as e:
+                return jsonify({'success': False,
+                                'err': f'رمز عبور باید حداقل ۸ کاراکتر و شامل حروف خاص، بزرگ و کوچک و اعداد باشد.'})
             else:
-                return jsonify({'success': False, 'err': 'رمز عبور باید حداقل ۸ کاراکتر باشد'})
+                Users.update({Users.password: user.password}).where(Users.id == current_user.id).execute()
+                return jsonify({'success': True, 'err': 'رمز عبور با موفقیت تغییر یافت'})
         else:
-            return jsonify({'success': False, 'err': 'رمز عبور فعلی صحیح نمی‌باشد'})
+            return jsonify({'success': False, 'err': 'رمز عبور قبلی صحیح نمی‌باشد'})
 
     return render_template('change_password.html')
-
-
