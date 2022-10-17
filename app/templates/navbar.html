@@ -29,13 +29,23 @@
                         <div class="vr"></div>
                         ثبت‌نام</a>
                 </li>
+                {% else %}
+                    {% if current_user.rule.rule == 'کارمند' %}
+
+
+                    <li id="EmployeeDashboardNav" class="nav-item">
+                        <a class="nav-link" href="/employee_panel">مدیریت | {{current_user.name}}</a>
+                    </li>
+                    {% else %}
+                    <li id="UserDashboardNav" class="nav-item">
+                        <a class="nav-link" href="/dashboard">ناحیه کاربری | {{current_user.name}}</a>
+                    </li>
+                    {% endif %}
+
+
                 {% endif %}
                 <!--whith jinja check user login or not if user login show:-->
-                {% if current_user.is_authenticated %}
-                <li id="UserDashboardNav" class="nav-item">
-                    <a class="nav-link" href="/dashboard">ناحیه کاربری | {{current_user.name}}</a>
-                </li>
-                {% endif %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="/menu">منو</a>
                 </li>
