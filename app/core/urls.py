@@ -9,7 +9,7 @@ from views.contact import contact
 from views.signup import signup
 from views.login import login
 from views.dashboard import dashboard, order_history, logout, change_password
-from views.employee import dashboard_employee
+from views.employee import dashboard_employee, dashboard_admin
 
 routes = [
     Route("/", view_func=home),
@@ -25,6 +25,7 @@ routes = [
     Route("/logout/", view_func=logout, methods=['GET', 'POST']),
     Route("/change_password/", view_func=change_password, methods=['GET', 'POST']),
     Route("/employee_panel/", view_func=dashboard_employee, methods=['GET', 'POST']),
+    Route("/employee_admin/", view_func=dashboard_admin, methods=['GET', 'POST']),
     # Handlers:
     Handler(404, not_found)
 ]

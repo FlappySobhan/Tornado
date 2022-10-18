@@ -74,7 +74,7 @@ class GenerateData:
         except Exception:
             for i in range(1, 5):
                 subs = Users.select().order_by(Users.id.desc()).first()
-                subs = subs.id + 100 if subs else 100
+                subs = subs.id + 1 if subs else 100
                 user = Users('jeff', 'bobs', f'091235{i}6842',
                              'iran-mashhad', config('SECURITY_PASS_TEST'), 12345, subs, 1)
                 user.save()

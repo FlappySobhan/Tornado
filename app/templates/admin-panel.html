@@ -18,9 +18,11 @@
         </div>
         <div class="sidebarRTL mb-0 text-right">
             <ul class="sidebarRTL list-unstyled components mb-5" dir="rtl">
+                {% if current_user.rule.rule == "ادمین" %}
                 <li>
                     <a href="#"><span class="fa fa-users mr-3"></span> مدیریت کاربران </a>
                 </li>
+                {% endif %}
                 <li>
                     <a href="#"><span class="fa fa-cart-plus mr-3"></span> مدیریت سفارشات </a>
                 </li>

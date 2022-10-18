@@ -87,7 +87,7 @@
         $('#contactSubmit').click(function () {
             event.preventDefault();
             $.ajax({
-                url: 'http://127.0.0.1:5005/contact',
+                url: '/contact',
                 type: 'POST',
                 data: {
                     "contactName": $('#contactName').val(),

@@ -27,12 +27,10 @@ def dashboard():
         except StructureError as e:
             return jsonify({'success': False, 'err': f"{e}"})
         else:
-            for key, value in update_user.items():
-                Users.update({key: value}).where(Users.id == current_user.id).execute()
+            Users.update(update_user).where(Users.id == current_user.id).execute()
             extra_check = Extra.select().where(Extra.user == current_user.id).first()
             if extra_check:
-                for key, value in update_extra.items():
-                    Extra.update({key: value}).where(Extra.user_id == current_user.id).execute()
+                Extra.update(update_extra).where(Extra.user_id == current_user.id).execute()
             else:
                 Extra.create(**update_extra)
             return jsonify({'success': True, 'err': "اطلاعات با موفقیت ثبت شد"})
@@ -63,7 +61,6 @@ def change_password():
     if request.method == 'POST':
         old_pass = request.form['oldPassword']
         new_pass = request.form['newPassword']
-        print(old_pass, new_pass)
         if check_password_hash(current_user.password, old_pass):
             try:
                 user = Users('jeff', 'bobs', '09123536842',

@@ -166,7 +166,7 @@
         function signupfunc() {
             // event.preventDefault();
             $.ajax({
-                url: 'http://127.0.0.1:5005/signup',
+                url: '/signup/',
                 type: 'POST',
                 data: {
                     "firstname": $('#firstname').val(),
@@ -226,7 +226,7 @@
 
              // event.preventDefault();
             $.ajax({
-                url: 'http://127.0.0.1:5005/login',
+                url: '/login/',
                 type: 'POST',
                 data: {
                     "phone": $('#phoneLogin').val(),

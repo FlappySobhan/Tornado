@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 from models.user import Users
 from flask_login import login_user
 from werkzeug.security import check_password_hash
@@ -16,3 +16,4 @@ def login():
             return jsonify({'success': True})
 
         return jsonify({'success': False, 'err': 'اطلاعات وروردی صحیح نمی‌باشد'})
+    return render_template('home.html')
