@@ -8,6 +8,7 @@ from core.exceptions import StructureError
 class Desk(BaseModel):
     """Desk table definition and validation"""
     id = peewee.AutoField()
+    name = peewee.CharField()
     number = peewee.IntegerField()
     capacity = peewee.IntegerField()
     status = peewee.CharField()

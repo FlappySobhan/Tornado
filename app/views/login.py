@@ -11,7 +11,7 @@ def login():
         password = request.form['password']
         user = Users.select().where(Users.phone == phone).first()
 
-        if check_password_hash(user.password, password):
+        if user and check_password_hash(user.password, password):
             login_user(user)
             return jsonify({'success': True})
 

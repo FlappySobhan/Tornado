@@ -1,277 +1,287 @@
-    <!-- Modal -->
-    <div class="modal fade" id="Signupmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="SignupLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content  bg-mycolor-light border-0">
-                <div class="modal-header d-flex justify-content-between border-0">
-                    <h5 class="modal-title" id="SignupLabel">ثبت نام</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <form class="p-3" action="javascript:void(0);" id="signup" name="signupform"
-                            onsubmit="signupfunc();">
-                            <div class="row g-2 mb-3">
-                                <div class="col-sm">
-                                    <div class="form-floating has-validation">
-                                        <input type="text" class="form-control" id="firstname" placeholder="نام"
-                                            required onchange="">
-                                        <label for="firstname">نام</label>
-                                        <div class="invalid-feedback">
-                                            لطفا نام خود را به درستی وارد کنید!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="form-floating has-validation">
-                                        <input type="text" class="form-control" id="lastname" placeholder="نام‌خانوادگی"
-                                            required onchange="">
-                                        <label for="lastname">نام‌خانوادگی</label>
-                                        <div class="invalid-feedback">
-                                            لطفا نام‌خانوادگی خود را به درستی وارد کنید!
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <div class="form-floating has-validation">
-                                    <input id="phone" type="text" class="form-control" required dir="ltr"
-                                        placeholder="9123456789" onchange="validatephone(this)">
-                                    <label for="phone">شماره‌موبایل</label>
-                                    <div class="invalid-feedback">
-                                        شماره نامعتبر!
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="form-floating" dir="ltr">
-                                        <select id="phoneCountry" class="form-select"
-                                            style="border-radius: 10% 0 0 10%;" disabled>
-                                            <option>+98</option>
-                                        </select>
-                                        <label for="phoneCountry">IR</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3 form-floating">
-                                <input type="text" class="form-control" id="address" placeholder="آدرس" required>
-                                <label for="address">آدرس</label>
-                            </div>
-                            <div class="row g-2 mb-3">
-                                <div class="col-sm">
-                                    <div class="form-floating has-validation">
-                                        <input type="password" class="form-control" id="Password" required
-                                            onchange="validatepass(this)" placeholder="رمز">
-                                        <label for="Password">رمز</label>
-                                        <div class="invalid-feedback">
-                                            رمز نمی‌تواند کمتر از ۸ کارکتر باشد!
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm mb-3">
-                                    <div class="form-floating has-validation">
-                                        <input type="password" class="form-control" id="ConfirmPassword" required
-                                            onchange="confirmpass()" placeholder="تایید رمز">
-                                        <label for="ConfirmPassword">تایید رمز</label>
-                                        <div class="invalid-feedback">
-                                            عدم تشابه!
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row justify-content-between text-center mt-4">
-                                <div class="col-6 col-sm-4 mt-2"><button id="signupSubmit" type="submit"
-                                        class="btn btn btn-outline-success w-100">ثبت‌نام کن</button>
-                                </div>
-                                <div class="col-6 col-sm-4 mt-2"><button type="reset"
-                                        class="btn btn-outline-secondary w-100" data-bs-target="#Loginmodal"
-                                        data-bs-toggle="modal">اکانت دارید؟</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="Signupmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="SignupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <div class="modal-content  bg-mycolor-light border-0">
+            <div class="modal-header d-flex justify-content-between border-0">
+                <h5 class="modal-title" id="SignupLabel">ثبت نام</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="Loginmodal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
-        aria-labelledby="LoginLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content bg-mycolor-light border-0">
-                <div class="modal-header d-flex justify-content-between border-0">
-                    <h5 class="modal-title" id="LoginLabel">ورود</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container p-3">
-                        <form class="mb-4"  id="login" name="loginform">
-
-                            <div class="input-group mb-3">
+            <div class="modal-body">
+                <div class="container">
+                    <form class="p-3" action="javascript:void(0);" id="signup" name="signupform"
+                          onsubmit="signupfunc();">
+                        <div class="row g-2 mb-3">
+                            <div class="col-sm">
                                 <div class="form-floating has-validation">
-                                    <input id="phoneLogin" type="text" class="form-control" required dir="ltr"
-                                        placeholder="9123456789" onchange="validatephone(this)">
-                                    <label for="phone">شماره‌موبایل</label>
+                                    <input type="text" class="form-control" id="firstname" placeholder="نام"
+                                           required onchange="">
+                                    <label for="firstname">نام</label>
                                     <div class="invalid-feedback">
-                                        شماره نامعتبر!
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="form-floating" dir="ltr">
-                                        <select id="phoneCountryLogin" class="form-select"
-                                            style="border-radius: 10% 0 0 10%;" disabled>
-                                            <option>+98</option>
-                                        </select>
-                                        <label for="phoneCountry">IR</label>
+                                        لطفا نام خود را به درستی وارد کنید!
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="form-floating has-validation">
-                                    <input id="ourPasswordLogin" type="password" class="form-control"  required
-                                        onchange="validatepass(this)" placeholder="رمز">
-                                    <label for="ourPasswordLogin">رمز</label>
+                                    <input type="text" class="form-control" id="lastname" placeholder="نام‌خانوادگی"
+                                           required onchange="">
+                                    <label for="lastname">نام‌خانوادگی</label>
+                                    <div class="invalid-feedback">
+                                        لطفا نام‌خانوادگی خود را به درستی وارد کنید!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="form-floating has-validation">
+                                <input id="phone" type="text" class="form-control" required dir="ltr"
+                                       placeholder="9123456789" onchange="validatephone(this)">
+                                <label for="phone">شماره‌موبایل</label>
+                                <div class="invalid-feedback">
+                                    شماره نامعتبر!
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-floating" dir="ltr">
+                                    <select id="phoneCountry" class="form-select"
+                                            style="border-radius: 10% 0 0 10%;" disabled>
+                                        <option>+98</option>
+                                    </select>
+                                    <label for="phoneCountry">IR</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" id="address" placeholder="آدرس" required>
+                            <label for="address">آدرس</label>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-sm">
+                                <div class="form-floating has-validation">
+                                    <input type="password" class="form-control" id="Password" required
+                                           onchange="validatepass(this)" placeholder="رمز">
+                                    <label for="Password">رمز</label>
                                     <div class="invalid-feedback">
                                         رمز نمی‌تواند کمتر از ۸ کارکتر باشد!
                                     </div>
                                 </div>
                             </div>
-                            <div class="row justify-content-between text-center mt-4">
-                                <div id="loginSubmit" class="col-6 col-sm-4 mt-2"><button type="submit"
-                                        class="btn btn btn-outline-success w-100">ورود</button>
+
+                            <div class="col-sm mb-3">
+                                <div class="form-floating has-validation">
+                                    <input type="password" class="form-control" id="ConfirmPassword" required
+                                           onchange="confirmpass()" placeholder="تایید رمز">
+                                    <label for="ConfirmPassword">تایید رمز</label>
+                                    <div class="invalid-feedback">
+                                        عدم تشابه!
+                                    </div>
                                 </div>
-                                <div class="col-6 col-sm-4 mt-2"><button type="reset"
-                                        class="btn btn-outline-secondary w-100" data-bs-target="#Signupmodal"
-                                        data-bs-toggle="modal">ثبت‌نام</button>
-                                </div>
+
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row justify-content-between text-center mt-4">
+                            <div class="col-6 col-sm-4 mt-2">
+                                <button id="signupSubmit" type="submit"
+                                        class="btn btn btn-outline-success w-100">ثبت‌نام کن
+                                </button>
+                            </div>
+                            <div class="col-6 col-sm-4 mt-2">
+                                <button type="reset"
+                                        class="btn btn-outline-secondary w-100" data-bs-target="#Loginmodal"
+                                        data-bs-toggle="modal">اکانت دارید؟
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="Loginmodal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
+     aria-labelledby="LoginLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <div class="modal-content bg-mycolor-light border-0">
+            <div class="modal-header d-flex justify-content-between border-0">
+                <h5 class="modal-title" id="LoginLabel">ورود</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container p-3">
+                    <form class="mb-4" id="login" name="loginform">
+
+                        <div class="input-group mb-3">
+                            <div class="form-floating has-validation">
+                                <input id="phoneLogin" type="text" class="form-control" required dir="ltr"
+                                       placeholder="9123456789" onchange="validatephone(this)">
+                                <label for="phone">شماره‌موبایل</label>
+                                <div class="invalid-feedback">
+                                    شماره نامعتبر!
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-floating" dir="ltr">
+                                    <select id="phoneCountryLogin" class="form-select"
+                                            style="border-radius: 10% 0 0 10%;" disabled>
+                                        <option>+98</option>
+                                    </select>
+                                    <label for="phoneCountry">IR</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-floating has-validation">
+                                <input id="ourPasswordLogin" type="password" class="form-control" required
+                                       onchange="validatepass(this)" placeholder="رمز">
+                                <label for="ourPasswordLogin">رمز</label>
+                                <div class="invalid-feedback">
+                                    رمز نمی‌تواند کمتر از ۸ کارکتر باشد!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-center mt-4">
+                            <div id="loginSubmit" class="col-6 col-sm-4 mt-2">
+                                <button type="submit"
+                                        class="btn btn btn-outline-success w-100">ورود
+                                </button>
+                            </div>
+                            <div class="col-6 col-sm-4 mt-2">
+                                <button type="reset"
+                                        class="btn btn-outline-secondary w-100" data-bs-target="#Signupmodal"
+                                        data-bs-toggle="modal">ثبت‌نام
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% block script %}
-    <script src="../static/js/validators.js"></script>
+<script src="../static/js/validators.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        // give this value to app.py with ajax
+<script>
+    // give this value to app.py with ajax
 
-        function signupfunc() {
-            // event.preventDefault();
-            $.ajax({
-                url: '/signup/',
-                type: 'POST',
-                data: {
-                    "firstname": $('#firstname').val(),
-                    "lastname": $('#lastname').val(),
-                    "phone": $('#phone').val(),
-                    "address": $('#address').val(),
-                    "password": $('#Password').val()
-                },
-                // if success alert something from flask flash
-                success: function (data) {
-                    if (data['success'] === true) {
-                        swal.fire({
-                            buttonsStyling: false,
-                            customClass: {
-                                confirmButton: 'learn-more'
-                            },
-                            title: 'ثبت‌نام با موفقیت انجام شد',
-                            confirmButtonText: 'باشه'
-                        }).then(function (isConfirm) {
-                            if (isConfirm) {
-                                location.reload()
-                            }
-                        })
+    function signupfunc() {
+        // event.preventDefault();
+        $.ajax({
+            url: '/signup/',
+            type: 'POST',
+            data: {
+                "firstname": $('#firstname').val(),
+                "lastname": $('#lastname').val(),
+                "phone": $('#phone').val(),
+                "address": $('#address').val(),
+                "password": $('#Password').val()
+            },
+            // if success alert something from flask flash
+            success: function (data) {
+                if (data['success'] === true) {
+                    swal.fire({
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'learn-more'
+                        },
+                        title: 'ثبت‌نام با موفقیت انجام شد',
+                        confirmButtonText: 'باشه'
+                    }).then(function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload()
+                        }
+                    })
 
-                    } else {
-                        document.getElementById("signup").reset();
-                        swal.fire({
-                            buttonsStyling: false,
-                            customClass: {
-                                confirmButton: 'learn-more'
+                } else {
+                    document.getElementById("signup").reset();
+                    swal.fire({
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'learn-more'
 
 
-                            },
-                            icon: 'warning',
-                            title: 'خطا',
-                            text: data['err'],
-                            confirmButtonColor: '#fff0cf',
-                            confirmButtonText: 'باشه'
+                        },
+                        icon: 'warning',
+                        title: 'خطا',
+                        text: data['err'],
+                        confirmButtonColor: '#fff0cf',
+                        confirmButtonText: 'باشه'
 
-                        })
-                    }
-                },
-                error: function () {
-                    alert("خطا در ارتباط")
+                    })
                 }
-            });
-        };
-
-    </script>
-    <script>
-        <!-- login       -->
-
-        $("#loginSubmit").click(function() {
-
-            event.preventDefault();
-
-
-             // event.preventDefault();
-            $.ajax({
-                url: '/login/',
-                type: 'POST',
-                data: {
-                    "phone": $('#phoneLogin').val(),
-                    "password": $('#ourPasswordLogin').val()
-                },
-                success: function (data) {
-                    if (data['success'] === true) {
-                        swal.fire({
-                            buttonsStyling: false,
-                            customClass: {
-                                confirmButton: 'learn-more'
-                            },
-                            title: 'ورود با موفقیت انجام شد',
-                            confirmButtonText: 'باشه'
-                        }).then(function (isConfirm) {
-                            if (isConfirm) {
-                                location.reload()
-
-
-                            }
-                        })
-
-                    } else {
-                        document.getElementById("signup").reset();
-                        swal.fire({
-                            buttonsStyling: false,
-                            customClass: {
-                                confirmButton: 'learn-more'
-
-
-                            },
-                            icon: 'warning',
-                            title: 'خطا در ورود',
-                            text: data['err'],
-                            confirmButtonColor: '#fff0cf',
-                            confirmButtonText: 'باشه'
-
-                        })
-                    }
-                },
-                error: function () {
-                    alert("خطا در ارتباط")
-                }
-            });
+            },
+            error: function () {
+                alert("خطا در ارتباط")
+            }
         });
+    };
 
-    </script>
+</script>
+<script>
+    <!-- login       -->
+
+    $("#loginSubmit").click(function () {
+
+        event.preventDefault();
+
+
+        // event.preventDefault();
+        $.ajax({
+            url: '/login/',
+            type: 'POST',
+            data: {
+                "phone": $('#phoneLogin').val(),
+                "password": $('#ourPasswordLogin').val()
+            },
+            success: function (data) {
+                if (data['success'] === true) {
+                    swal.fire({
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'learn-more'
+                        },
+                        title: 'ورود با موفقیت انجام شد',
+                        confirmButtonText: 'باشه'
+                    }).then(function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload()
+
+
+                        }
+                    })
+
+                } else {
+                    document.getElementById("signup").reset();
+                    swal.fire({
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'learn-more'
+
+
+                        },
+                        icon: 'warning',
+                        title: 'خطا در ورود',
+                        text: data['err'],
+                        confirmButtonColor: '#fff0cf',
+                        confirmButtonText: 'باشه'
+
+                    })
+                }
+            },
+            error: function () {
+                alert("خطا در ارتباط")
+            }
+        });
+    });
+
+</script>
 {% endblock script %}

@@ -10,6 +10,7 @@ from views.signup import signup
 from views.login import login
 from views.dashboard import dashboard, order_history, logout, change_password
 from views.employee import dashboard_employee, dashboard_admin
+from views.addorder import add_order
 
 routes = [
     Route("/", view_func=home),
@@ -26,6 +27,7 @@ routes = [
     Route("/change_password/", view_func=change_password, methods=['GET', 'POST']),
     Route("/employee_panel/", view_func=dashboard_employee, methods=['GET', 'POST']),
     Route("/employee_admin/", view_func=dashboard_admin, methods=['GET', 'POST']),
+    Route("/add_order/", view_func=add_order, methods=['GET', 'POST']),
     # Handlers:
     Handler(404, not_found)
 ]
