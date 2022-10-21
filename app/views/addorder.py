@@ -19,7 +19,6 @@ def add_order():
 
         added_time = sum(menu_item.preparation.minute for menu_item in menu_items)
         deliver_time = datetime.now() + timedelta(minutes=added_time)
-        # Field: deliver => yyyy-mm-dd hh:mm:ss
         deliver_time = deliver_time.strftime('%Y-%m-%d %H:%M:%S')
 
         last_order = Order.select().order_by(Order.code.desc()).first()
@@ -34,9 +33,11 @@ def add_order():
 
         order = Order(deliver_time, last_order, cost, current_user.id, desk_id, 4, None)
         order.save()
+
         for menu_item in menu_items:
             item = Items(order.id, menu_item.id)
             item.save()
+
         return jsonify({'success': True})
 
     return redirect(url_for('order_history'))
