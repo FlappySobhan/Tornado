@@ -4,7 +4,7 @@
 
 var shoppingCart = (function () {
     // =============================
-    // Private methods and propeties
+    // Private methods and properties
     // =============================
     cart = [];
 
@@ -31,7 +31,7 @@ var shoppingCart = (function () {
 
 
     // =============================
-    // Public methods and propeties
+    // Public methods and properties
     // =============================
     var obj = {};
 
