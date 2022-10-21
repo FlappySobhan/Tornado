@@ -22,7 +22,7 @@ routes = [
     Route("/signup/", view_func=signup, methods=['GET', 'POST']),
     Route("/login/", view_func=login, methods=['GET', 'POST']),
     Route("/dashboard/", view_func=dashboard, methods=['GET', 'POST']),
-    Route("/order_history/", view_func=order_history, methods=['GET', 'POST']),
+    Route("/order_history/", view_func=order_history, methods=['GET']),
     Route("/logout/", view_func=logout, methods=['GET', 'POST']),
     Route("/change_password/", view_func=change_password, methods=['GET', 'POST']),
     Route("/employee_panel/", view_func=dashboard_employee, methods=['GET', 'POST']),

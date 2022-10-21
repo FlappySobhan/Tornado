@@ -41,11 +41,10 @@ def dashboard():
 @login_required
 def order_history():
     """Show order history"""
-    if request.method == 'GET':
-        query = Order.select().where(Order.user == current_user.id)
-        orders = [order for order in query]
+    query = Order.select().where(Order.user == current_user.id)
+    orders = [order for order in query]
 
-        return render_template('order_history.html', result=orders)
+    return render_template('order_history.html', result=orders)
 
 
 @login_required
