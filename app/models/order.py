@@ -19,7 +19,7 @@ class Order(BaseModel):
     user = peewee.ForeignKeyField(Users, field="id")
     desk = peewee.ForeignKeyField(Desk, field="id")
     status = peewee.ForeignKeyField(Status, field="id")
-    coupon = peewee.ForeignKeyField(Coupon, field="id")
+    coupon = peewee.ForeignKeyField(Coupon, field="id", null=True)
 
     def __init__(self, deliver: str, code: int, cost: int | float, user: int,
                  desk: int, status: int, coupon: int, *args, **kwargs) -> None:
@@ -49,7 +49,7 @@ class Order(BaseModel):
             'user': r'^\d{1,10}$',
             'desk': r'^\d{1,10}$',
             'status': r'^\d{1,10}$',
-            'coupon': r'^\d{1,10}$|^None$',
+            'coupon': r'(^\d{1,10}$)|(^None$)',
             'id': r'^\d{1,}$'
         }
 

@@ -1,6 +1,5 @@
-from flask import render_template, request
+from flask import render_template
 
 
 def home():
-    if request.method == 'GET':
-        return render_template('home.html')
+    return render_template('home.html')
